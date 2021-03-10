@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ae480887-d759-4215-ac6d-7e690b616935" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Backend/.idea/Backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/Backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/api/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/requirements.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1pZR7uRdd9IXkO3QDC8tkXxHtOP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ae480887-d759-4215-ac6d-7e690b616935" name="Default Changelist" comment="" />
+      <created>1615388464166</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615388464166</updated>
+    </task>
+    <servers />
+  </component>
+</project>
