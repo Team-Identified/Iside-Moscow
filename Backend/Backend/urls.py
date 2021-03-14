@@ -19,7 +19,14 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('authorization.urls')),
+
+    # path to djoser end points
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+
+    # path to our account's app endpoints
+    path("accounts/", include('authorization.urls')),
+
     path('geo_objects/', include('geo_objects.urls')),
     path('news/', include('news.urls')),
 ]

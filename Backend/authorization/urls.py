@@ -1,12 +1,11 @@
-from django.urls import path, include
-from rest_framework import routers
-from authorization import views
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+from .views import UserProfileListCreateView, UserProfileDetailView
 
 urlpatterns = [
-    path('', include(router.urls), name='auth-home'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # gets all user profiles and create a new profile
+    path("all-profiles", UserProfileListCreateView.as_view(), name="all-profiles"),
+    # retrieves profile details of the currently logged in user
+    path("profile/<int:pk>", UserProfileDetailView.as_view(), name="profile"),
 ]

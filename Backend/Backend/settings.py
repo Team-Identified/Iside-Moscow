@@ -37,8 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'geo_objects.apps.GeoObjectsConfig',
+    'authorization.apps.AuthorizationConfig',
+
+    # third party package for user registration and authentication endpoints
+    'djoser',
+
+    # rest API implementation library for django
+    'rest_framework',
+
+    # JWT authentication backend library
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -103,14 +112,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
-    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 
