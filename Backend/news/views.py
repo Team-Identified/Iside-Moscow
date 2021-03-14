@@ -12,7 +12,7 @@ news_api = NewsApiClient(api_key=NEWS_API_KEY)
 
 
 class GetNews(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         page = request.GET.get('page')
