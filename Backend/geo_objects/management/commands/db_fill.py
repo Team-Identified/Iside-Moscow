@@ -18,5 +18,6 @@ class Command(BaseCommand):
                 image_url=data['image-url'],
                 address=data['address'],
                 coordinates=data['coordinates'],
+                approved=True,
             )
             obj.save()

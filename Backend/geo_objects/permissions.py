@@ -13,4 +13,7 @@ class IsContributorOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the snippet.
-        return obj.contributor == request.user
+        if obj.contributor == request.user and not obj.approved:
+            return True
+        else:
+            return False

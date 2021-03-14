@@ -27,6 +27,7 @@ class GeoObject(models.Model):
     coordinates = models.CharField(max_length=100)
     contributor = models.ForeignKey('auth.User', related_name='contributed_objects', null=True,
                                     default=None, on_delete=models.SET_NULL)
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.category}: {self.name_ru}/{self.name_en}'
