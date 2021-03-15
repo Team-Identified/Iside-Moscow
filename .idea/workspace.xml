@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae480887-d759-4215-ac6d-7e690b616935" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Backend/.idea/Backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/Backend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Backend/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/api/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Iside-Moscow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Iside-Moscow.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile_app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mobile_app/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/mobile_app/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +15,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1pZR7uRdd9IXkO3QDC8tkXxHtOP" />
@@ -31,8 +30,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ae480887-d759-4215-ac6d-7e690b616935" name="Default Changelist" comment="" />
@@ -42,5 +44,16 @@
       <updated>1615388464166</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
