@@ -4,8 +4,9 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="1">
+          <list size="2">
             <item index="0" class="java.lang.String" itemvalue="transliterate" />
+            <item index="1" class="java.lang.String" itemvalue="newsapi" />
           </list>
         </value>
       </option>
@@ -25,6 +26,8 @@
           <option value="api.models.Report.objects" />
           <option value="api.models.Comment.objects" />
           <option value="api.models.Rating.objects" />
+          <option value="geo_objects.models.GeoObject.objects" />
+          <option value="geo_objects.models.GeoObject.DoesNotExist" />
         </list>
       </option>
     </inspection_tool>

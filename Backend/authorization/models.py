@@ -13,7 +13,6 @@ LANGUAGE_CHOICES = [
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     date_joined = models.DateTimeField(auto_now_add=True)
-    is_admin = models.BooleanField(default=False)
     language = models.CharField(choices=LANGUAGE_CHOICES, default='English', max_length=100)
 
     def __str__(self):

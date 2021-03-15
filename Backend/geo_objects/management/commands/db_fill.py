@@ -1,3 +1,4 @@
+from math import floor
 from django.core.management.base import BaseCommand
 import json
 from geo_objects.models import GeoObject
@@ -5,10 +6,13 @@ from geo_objects.models import GeoObject
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        GeoObject.objects.all().delete()
-        with open('Theatres.json', encoding='utf-8') as json_file:
+        GeoObject.objects.all().filter(contributor=None).delete()
+        with open('MoscowObjects.json', encoding='utf-8-sig') as json_file:
             data_list = json.load(json_file)
-        for data in data_list:
+        for index, data in enumerate(data_list, start=1):
+            progress = floor((index / len(data_list)) * 100)
+            print(f'Data base fill {progress}% Done')
+
             obj = GeoObject(
                 category=data['category'],
                 name_ru=data['name-ru'],
@@ -21,3 +25,4 @@ class Command(BaseCommand):
                 approved=True,
             )
             obj.save()
+        print(f'Data base filled successfully!')

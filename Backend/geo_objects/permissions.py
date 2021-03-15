@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class IsContributorOrReadOnly(permissions.BasePermission):
+class IsContributorOrStaffOrReadOnly(permissions.BasePermission):
     """
     Custom permission to only allow contributors of an object to edit it.
     """
@@ -13,7 +13,7 @@ class IsContributorOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the snippet.
-        if obj.contributor == request.user and not obj.approved:
+        if (obj.contributor == request.user and not obj.approved) or request.user.is_staff:
             return True
         else:
             return False
