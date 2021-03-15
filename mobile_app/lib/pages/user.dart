@@ -10,7 +10,15 @@ class _UserState extends State<User> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(title:Text("User page")),
+          appBar: AppBar(
+            title:Text("Profile"),
+            centerTitle: true,
+            backgroundColor: Colors.deepPurpleAccent[700],
+          ),
+          backgroundColor: Colors.grey[300],
+          body: Center(
+            child: Text('Profile page'),
+          ),
         )
     );
   }

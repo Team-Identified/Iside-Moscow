@@ -10,7 +10,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(title:Text("Home page")),
+          appBar: AppBar(
+            title:Text("Home"),
+            centerTitle: true,
+            backgroundColor: Colors.deepPurpleAccent[700],
+          ),
+          backgroundColor: Colors.grey[300],
+          body: Center(
+            child: Text('Home page'),
+          ),
         )
     );
   }

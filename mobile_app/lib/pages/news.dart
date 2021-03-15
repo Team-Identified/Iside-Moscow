@@ -10,7 +10,15 @@ class _NewsState extends State<News> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(title:Text("News page")),
+          appBar: AppBar(
+            title:Text("News"),
+            centerTitle: true,
+            backgroundColor: Colors.deepPurpleAccent[700],
+          ),
+          backgroundColor: Colors.grey[300],
+          body: Center(
+            child: Text('News page'),
+          ),
         )
     );
   }

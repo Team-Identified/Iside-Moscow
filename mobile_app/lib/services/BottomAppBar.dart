@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/pages/home.dart';
-import 'package:mobile_app/pages/map.dart';
 import 'package:mobile_app/pages/news.dart';
 import 'package:mobile_app/pages/user.dart';
 
@@ -16,7 +15,6 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   final List<Widget> _children = [
     News(),
     Home(),
-    Map(),
     User()
   ];
 
@@ -32,13 +30,15 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
       body: _children[_currIndex],
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.blueGrey[500],
-          selectedItemColor: Colors.blue[500],
+          selectedItemColor: Colors.deepPurpleAccent,
           onTap: onTappedBar,
+          iconSize: 27.0,
           currentIndex: _currIndex,
+          backgroundColor: Colors.white,
           items:
             [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.new_releases_sharp),
+                  icon: Icon(Icons.article_rounded),
                   label: 'News'
               ),
               BottomNavigationBarItem(
@@ -46,12 +46,8 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
                   label: 'Home'
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.map_outlined),
-                  label: 'Map'
-              ),
-              BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle),
-                  label: 'User'
+                  label: 'Profile'
               ),
             ]
         ),
