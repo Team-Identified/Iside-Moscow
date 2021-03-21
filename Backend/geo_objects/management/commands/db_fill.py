@@ -13,6 +13,8 @@ class Command(BaseCommand):
             progress = floor((index / len(data_list)) * 100)
             print(f'Data base fill {progress}% Done')
 
+            lat, lon = map(float, data['coordinates'].split(','))
+
             obj = GeoObject(
                 category=data['category'],
                 name_ru=data['name-ru'],
@@ -21,8 +23,8 @@ class Command(BaseCommand):
                 wiki_en=data['wiki-en'],
                 image_url=data['image-url'],
                 address=data['address'],
-                coordinates=data['coordinates'],
-                approved=True,
+                latitude=lat,
+                longitude=lon,
             )
             obj.save()
         print(f'Data base filled successfully!')

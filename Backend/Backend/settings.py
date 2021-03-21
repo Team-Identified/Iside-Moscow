@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'geo_objects.apps.GeoObjectsConfig',
     'authorization.apps.AuthorizationConfig',
 
@@ -118,6 +119,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+
+DJOSER = {
+    'SERIALIZERS': {
+        'current_user': 'authorization.serializers.ShortUserProfileSerializer',
+    },
 }
 
 

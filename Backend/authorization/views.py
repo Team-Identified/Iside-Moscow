@@ -1,18 +1,14 @@
-from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView, )
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import (RetrieveUpdateDestroyAPIView, ListAPIView)
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import UserProfile
 from .permissions import IsOwnerProfileOrReadOnly
 from .serializers import UserProfileSerializer
 
 
-class UserProfileListCreateView(ListCreateAPIView):
+class UserProfileListCreateView(ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
-
-    def perform_create(self, serializer):
-        user = self.request.user
-        serializer.save(user=user)
+    permission_classes = [IsAdminUser]
 
 
 class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
