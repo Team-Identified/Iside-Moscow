@@ -11,11 +11,13 @@ class CustomBottomAppBar extends StatefulWidget {
 
 class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
 
+  Map newsData = {};
+
   int _currIndex = 1;
-  final List<Widget> _children = [
+  List<Widget> _children = [
     News(),
     Home(),
-    User()
+    User(),
   ];
 
   void onTappedBar(int index) {
@@ -26,6 +28,8 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
 
   @override
   Widget build(BuildContext context) {
+
+    newsData = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       body: _children[_currIndex],
         bottomNavigationBar: BottomNavigationBar(
