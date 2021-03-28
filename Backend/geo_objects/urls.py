@@ -8,5 +8,7 @@ router.register(r'geo_object-list', views.GeoObjectViewSet)
 router.register(r'submitted_geo_object-list', views.SubmittedGeoObjectViewSet)
 
 urlpatterns = [
+    path('', views.APIRootView.as_view()),
     path('', include(router.urls)),
+    path('get_nearby_objects', views.GetNearbyObjectsForUserView.as_view(), name='get_nearby'),
 ]
