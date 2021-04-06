@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' show json, base64, ascii;
+import 'dart:convert' show json;
 import 'package:mobile_app/config.dart';
-import 'package:mobile_app/pages/profilePage.dart';
-import 'package:mobile_app/pages/signUpPage.dart';
 import 'package:mobile_app/components/Button.dart';
 import 'package:mobile_app/components/AlreadyHaveAnAccount.dart';
 
@@ -20,7 +18,10 @@ void displayDialog(context, title, text) => showDialog(
 class LoginPage extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final VoidCallback onSignUpButtonPressed;
+  final VoidCallback onSubmitButtonPressed;
 
+  LoginPage({@required this.onSignUpButtonPressed, @required this.onSubmitButtonPressed});
 
   Future<Map> attemptLogIn(String username, String password) async {
     var res = await http.post(
@@ -70,22 +71,17 @@ class LoginPage extends StatelessWidget {
                 var username = _usernameController.text;
                 var password = _passwordController.text;
                 var jwt = await attemptLogIn(username, password);
-                print(jwt["access"]);
-                print(jwt["refresh"]);
                 if(jwt != null) {
                   storage.write(key: "access_jwt", value: jwt["access"]);
                   storage.write(key: "refresh_jwt", value: jwt["refresh"]);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
-                  );
+                  onSubmitButtonPressed();
                 }
                 },
             ),
             SizedBox(height: 0.03),
             AlreadyHaveAnAccount(
               press: () {
-                print('TODO');
+                onSignUpButtonPressed();
               },
             ),
           ],

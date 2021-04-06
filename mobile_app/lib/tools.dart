@@ -7,7 +7,7 @@ void refreshAccess() async {
   var res = await http.post(
       Uri.http(SERVER_URL, '/auth/jwt/refresh/'),
       body: {
-        "refresh": storage.read(key: "refresh")
+        "refresh": storage.read(key: "refresh_jwt")
       }
   );
   if(res.statusCode == 200) {
@@ -17,8 +17,12 @@ void refreshAccess() async {
 }
 
 
-Future<bool> IsLoggedIn() async {
-  String accessToken = await storage.read(key: "access");
+Future<bool> isLoggedIn() async {
+  bool hasToken = await storage.containsKey(key: "access_jwt");
+  if (!hasToken)
+    return false;
+
+  String accessToken = await storage.read(key: "access_jwt");
   var res = await http.post(
       Uri.http(SERVER_URL, '/auth/jwt/verify/'),
       body: {
@@ -30,7 +34,7 @@ Future<bool> IsLoggedIn() async {
 
 
 void checkToken() async{
-  String accessToken = await storage.read(key: "access");
+  String accessToken = await storage.read(key: "access_jwt");
   var res = await http.post(
       Uri.http(SERVER_URL, '/auth/jwt/verify/'),
       body: {
@@ -45,7 +49,7 @@ void checkToken() async{
 
 Future<Map> serverRequest(String type, Map data, String url) async{
   await checkToken();
-  String accessToken = await storage.read(key: "access");
+  String accessToken = await storage.read(key: "access_jwt");
   String authData = "Bearer " + accessToken;
   var res;
   if (type == "post"){

@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' show json, base64, ascii;
 import 'package:mobile_app/config.dart';
-import 'package:mobile_app/pages/profilePage.dart';
 import 'package:mobile_app/pages/loginPage.dart';
 import 'package:mobile_app/components/Button.dart';
 import 'package:mobile_app/components/AlreadyHaveAnAccount.dart';
 
 
 class SignUpPage extends StatelessWidget {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final VoidCallback onLogInButtonPressed;
 
-  Future<int> attemptSignUp(String email,String username, String password) async {
+  SignUpPage({@required this.onLogInButtonPressed});
+
+  Future<int> attemptSignUp(String email, String username, String password) async {
     var res = await http.post(
         Uri.http(SERVER_URL, '/auth/users/'),
         body: {
@@ -23,7 +25,6 @@ class SignUpPage extends StatelessWidget {
         }
     );
     return res.statusCode;
-
   }
 
   @override
@@ -67,22 +68,15 @@ class SignUpPage extends StatelessWidget {
           Button(
             text: "SIGN UP",
             press: () async {
-              var username = _usernameController.text;
-              var password = _passwordController.text;
-              var email = _passwordController.text;
-              var res = await attemptSignUp(email,username, password);
-              if(res!=201){
+              String email = _emailController.text;
+              String username = _usernameController.text;
+              String password = _passwordController.text;
+              int res = await attemptSignUp(email, username, password);
+              if(res != 201){
                 displayDialog(context, "Error", "An unknown error occurred.");
               }
               else{
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginPage();
-                    },
-                  ),
-                );
+                onLogInButtonPressed();
               }
             },
           ),
@@ -90,7 +84,7 @@ class SignUpPage extends StatelessWidget {
           AlreadyHaveAnAccount(
             login: false,
             press: () {
-              print('TODO');
+              onLogInButtonPressed();
             },
           ),
         ],
