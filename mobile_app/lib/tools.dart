@@ -17,6 +17,18 @@ void refreshAccess() async {
 }
 
 
+Future<bool> IsLoggedIn() async {
+  String accessToken = await storage.read(key: "access");
+  var res = await http.post(
+      Uri.http(SERVER_URL, '/auth/jwt/verify/'),
+      body: {
+        "token":  accessToken,
+      }
+  );
+  return res.statusCode == 200;
+}
+
+
 void checkToken() async{
   String accessToken = await storage.read(key: "access");
   var res = await http.post(

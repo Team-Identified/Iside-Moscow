@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
+
+class NewsPage extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _NewsState createState() => _NewsState();
 }
 
-class _ProfileState extends State<Profile> {
+class _NewsState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            title:Text("Profile"),
+            title:Text("News"),
             centerTitle: true,
             backgroundColor: Colors.deepPurpleAccent[700],
           ),
           backgroundColor: Colors.grey[300],
           body: Center(
-            child: Text('Profile page'),
+            child: Text('News page'),
           ),
         )
     );

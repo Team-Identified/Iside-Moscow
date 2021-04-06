@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-class News extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _NewsState createState() => _NewsState();
+  _HomeState createState() => _HomeState();
 }
 
-class _NewsState extends State<News> {
+class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            title:Text("News"),
+            title:Text("Home"),
             centerTitle: true,
             backgroundColor: Colors.deepPurpleAccent[700],
           ),
           backgroundColor: Colors.grey[300],
           body: Center(
-            child: Text('News page'),
+            child: Text('Home page'),
           ),
         )
     );

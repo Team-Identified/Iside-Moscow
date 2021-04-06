@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/pages/home.dart';
-import 'package:mobile_app/pages/news.dart';
-import 'package:mobile_app/pages/authorization.dart';
-
+import 'package:mobile_app/config.dart';
+import 'package:mobile_app/pages/homePage.dart';
+import 'package:mobile_app/pages/newsPage.dart';
+import 'package:mobile_app/pages/userPage.dart';
+import 'package:mobile_app/tools.dart';
 class CustomBottomAppBar extends StatefulWidget {
 
   @override
@@ -13,9 +14,9 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
 
   int _currIndex = 1;
   final List<Widget> _children = [
-    News(),
-    Home(),
-    User()
+    NewsPage(),
+    HomePage(),
+    UserPage(),
   ];
 
   void onTappedBar(int index) {
@@ -28,7 +29,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _children[_currIndex],
-        bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.blueGrey[500],
           selectedItemColor: Colors.deepPurpleAccent,
           onTap: onTappedBar,
@@ -36,21 +37,21 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
           currentIndex: _currIndex,
           backgroundColor: Colors.white,
           items:
-            [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.article_rounded),
-                  label: 'News'
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home'
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle),
-                  label: 'Profile'
-              ),
-            ]
-        ),
+          [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.article_rounded),
+                label: 'News'
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home'
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle),
+                label: 'Profile'
+            ),
+          ]
+      ),
     );
   }
 }
