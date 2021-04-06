@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/services/BottomAppBar.dart';
-
+import 'package:mobile_app/components/BottomAppBar.dart';
+import 'package:mobile_app/pages/homePage.dart';
 void main() {
   runApp(Main());
 }

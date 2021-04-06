@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-class User extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _UserState createState() => _UserState();
+  _HomeState createState() => _HomeState();
 }
 
-class _UserState extends State<User> {
+class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            title:Text("Profile"),
+            title:Text("Home"),
             centerTitle: true,
             backgroundColor: Colors.deepPurpleAccent[700],
           ),
           backgroundColor: Colors.grey[300],
           body: Center(
-            child: Text('Profile page'),
+            child: Text('Home page'),
           ),
         )
     );

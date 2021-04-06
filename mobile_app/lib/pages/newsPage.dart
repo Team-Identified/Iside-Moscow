@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class News extends StatefulWidget {
+
+class NewsPage extends StatefulWidget {
   @override
   _NewsState createState() => _NewsState();
 }
 
-class _NewsState extends State<News> {
+class _NewsState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
