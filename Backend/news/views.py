@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
@@ -12,7 +12,8 @@ news_api = NewsApiClient(api_key=NEWS_API_KEY)
 
 
 class GetNews(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         page = request.GET.get('page')
