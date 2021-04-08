@@ -25,7 +25,7 @@ SECRET_KEY = 'y3o$3jflcv2gxu!e9f4!t_%w%-81)%wnu%lxg8e9y^8*z95x-i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1']
+ALLOWED_HOSTS = ['10.0.2.2', '127.0.0.1', '192.168.1.215']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'geo_objects.apps.GeoObjectsConfig',
     'authorization.apps.AuthorizationConfig',
+    'news.apps.NewsConfig',
 
     # third party package for user registration and authentication endpoints
     'djoser',

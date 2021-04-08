@@ -81,21 +81,27 @@ class _UserPageState extends State<UserPage> {
             );
           }
           else{
-            return Scaffold(
-              backgroundColor: Colors.purple[30],
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      backgroundColor: Colors.deepPurple,
-
-                    ),
-                    SizedBox(height: 20.0),
-                    Text("Loading", style: TextStyle(fontSize: 20.0),),
-                  ]
+            return MaterialApp(
+                home: Scaffold(
+                  appBar: AppBar(
+                    title: Text("Profile"),
+                    centerTitle: true,
+                    backgroundColor: Colors.deepPurpleAccent[700],
+                  ),
+                  backgroundColor: Colors.white,
+                  body: Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              backgroundColor: Colors.deepPurple,
+                            ),
+                            SizedBox(height: 20.0),
+                            Text("Loading", style: TextStyle(fontSize: 20.0),),
+                          ]
+                      )
+                  ),
                 )
-              ),
             );
           }
         }

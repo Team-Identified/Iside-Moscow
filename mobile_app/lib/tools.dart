@@ -1,18 +1,18 @@
 import 'package:mobile_app/config.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' show json;
+import 'dart:convert' show json, utf8;
 
 
-void refreshAccess() async {
-  var res = await http.post(
+Future<void> refreshAccess() async {
+  var response = await http.post(
       Uri.http(SERVER_URL, '/auth/jwt/refresh/'),
       body: {
-        "refresh": storage.read(key: "refresh_jwt")
+        "refresh": await storage.read(key: "refresh_jwt")
       }
   );
-  if(res.statusCode == 200) {
-    String access = json.decode(res.body)["access"];
-    storage.write(key: "access_jwt", value: access);
+  if(response.statusCode == 200) {
+    String access = json.decode(response.body)["access"];
+    await storage.write(key: "access_jwt", value: access);
   }
 }
 
@@ -23,37 +23,44 @@ Future<bool> isLoggedIn() async {
     return false;
 
   String accessToken = await storage.read(key: "access_jwt");
-  var res = await http.post(
+  var response = await http.post(
       Uri.http(SERVER_URL, '/auth/jwt/verify/'),
       body: {
         "token":  accessToken,
       }
   );
-  return res.statusCode == 200;
+  return response.statusCode == 200;
 }
 
 
-void checkToken() async{
+Future<void> checkToken() async{
+  bool hasToken = await storage.containsKey(key: "access_jwt");
+  if (!hasToken) {
+    await refreshAccess();
+    return;
+  }
+
   String accessToken = await storage.read(key: "access_jwt");
-  var res = await http.post(
+  var response = await http.post(
       Uri.http(SERVER_URL, '/auth/jwt/verify/'),
       body: {
         "token":  accessToken,
       }
   );
-  if(res.statusCode != 200) {
-    refreshAccess();
+
+  if(response.statusCode != 200) {
+    await refreshAccess();
   }
 }
 
 
-Future<Map> serverRequest(String type, Map data, String url) async{
+Future<Map> serverRequest(String type, String url, Map data) async{
   await checkToken();
   String accessToken = await storage.read(key: "access_jwt");
   String authData = "Bearer " + accessToken;
-  var res;
+  var response;
   if (type == "post"){
-    res = await http.post(
+    response = await http.post(
         Uri.http(SERVER_URL, url),
         body: data,
         headers:{
@@ -62,7 +69,7 @@ Future<Map> serverRequest(String type, Map data, String url) async{
     );
   }
   else if (type == "get"){
-    res = await http.get(
+    response = await http.get(
         Uri.http(SERVER_URL, url),
         headers:{
           "Authorization": authData,
@@ -70,7 +77,7 @@ Future<Map> serverRequest(String type, Map data, String url) async{
     );
   }
   else if (type == "patch"){
-    res = await http.patch(
+    response = await http.patch(
         Uri.http(SERVER_URL, url),
         body: data,
         headers:{
@@ -78,6 +85,6 @@ Future<Map> serverRequest(String type, Map data, String url) async{
         }
     );
   }
-  Map resData = json.decode(res.body);
+  Map resData = json.decode(utf8.decode(response.bodyBytes));
   return resData;
 }

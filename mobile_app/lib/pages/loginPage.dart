@@ -68,9 +68,9 @@ class LoginPage extends StatelessWidget {
             Button(
               text: "LOGIN",
               press: () async {
-                var username = _usernameController.text;
-                var password = _passwordController.text;
-                var jwt = await attemptLogIn(username, password);
+                String username = _usernameController.text;
+                String password = _passwordController.text;
+                Map jwt = await attemptLogIn(username, password);
                 if(jwt != null) {
                   storage.write(key: "access_jwt", value: jwt["access"]);
                   storage.write(key: "refresh_jwt", value: jwt["refresh"]);

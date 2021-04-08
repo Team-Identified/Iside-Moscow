@@ -27,7 +27,7 @@ class SubmittedGeoObjectSerializer(serializers.ModelSerializer):
     contributor = serializers.ReadOnlyField(source='contributor.username')
 
     class Meta:
-        model = GeoObject
+        model = SubmittedGeoObject
         fields = [
             'id',
             'url',
