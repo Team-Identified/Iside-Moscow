@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/pages/homePage.dart';
 import 'package:mobile_app/pages/newsPage.dart';
 import 'package:mobile_app/pages/userPage.dart';
+import 'package:mobile_app/pages/homePage.dart';
 
 
 class CustomBottomAppBar extends StatefulWidget {

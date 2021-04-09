@@ -49,16 +49,13 @@ def get_nearby_objects(request, point):
     serializer_context = {'request': request}
     for nearby_object in nearby_objects:
         dist = get_coordinates_distance(point, (nearby_object.latitude, nearby_object.longitude))
-        serializer = GeoObjectSerializer(instance=nearby_object, context=serializer_context)
-        serialized_object = serializer.data
-        object_data = {
-            # 'id': nearby_object.id,
-            # 'category': nearby_object.category,
-            # 'name-ru': nearby_object.name_ru,
-            # 'name-en': nearby_object.name_en,
-            'object': serialized_object,
-            'distance': dist,
-        }
-        result.append(object_data)
+        if dist <= 2000:
+            serializer = GeoObjectSerializer(instance=nearby_object, context=serializer_context)
+            serialized_object = serializer.data
+            object_data = {
+                'object': serialized_object,
+                'distance': dist,
+            }
+            result.append(object_data)
     result.sort(key=lambda x: x['distance'])
     return result

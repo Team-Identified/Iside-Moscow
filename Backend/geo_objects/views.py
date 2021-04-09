@@ -1,4 +1,3 @@
-import json
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.reverse import reverse
@@ -6,7 +5,7 @@ from geo_objects.models import GeoObject, SubmittedGeoObject
 from geo_objects.serializers import GeoObjectSerializer, SubmittedGeoObjectSerializer
 from geo_objects.permissions import IsContributorOrStaffOrReadOnly
 from geo_objects.tools import get_nearby_objects
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework import viewsets
 
@@ -39,6 +38,7 @@ class GetNearbyObjectsForUserView(APIView):
     Get nearby objects for user by coordinates
     """
     permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
 
     @staticmethod
     def post(request):

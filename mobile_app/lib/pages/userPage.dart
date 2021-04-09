@@ -94,7 +94,7 @@ class _UserPageState extends State<UserPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CircularProgressIndicator(
-                              backgroundColor: Colors.deepPurple,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
                             ),
                             SizedBox(height: 20.0),
                             Text("Loading", style: TextStyle(fontSize: 20.0),),

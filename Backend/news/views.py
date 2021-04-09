@@ -69,8 +69,8 @@ def need_for_update(offset=1):
 
 
 class GetNews(APIView):
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
 
     def get(self, request, page):
         if need_for_update(offset=NEWS_UPDATE_FREQ):

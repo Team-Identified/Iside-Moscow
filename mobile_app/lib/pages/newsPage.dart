@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/tools.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../config.dart';
 
 
 class NewsPage extends StatefulWidget {
@@ -47,7 +48,7 @@ class _NewsPageState extends State<NewsPage> {
           centerTitle: true,
           backgroundColor: Colors.deepPurpleAccent[700],
         ),
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Colors.grey[300],
         body: ListView.separated(
           itemCount: newsArticles.length + 1,
           addAutomaticKeepAlives: false,
@@ -71,7 +72,7 @@ class _NewsPageState extends State<NewsPage> {
                     children: [
                       SizedBox(height: 10.0),
                       CircularProgressIndicator(
-                        backgroundColor: Colors.deepPurple,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
                       ),
                       SizedBox(height: 15.0),
                     ],
@@ -105,14 +106,6 @@ class Article extends StatelessWidget {
     this.publishedAt
   });
 
-  void tryLaunch(String url) async{
-    // bool ability = await canLaunch(url);
-    // if (ability){
-    //   await launch(url);
-    // }
-    await launch(url);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -139,11 +132,53 @@ class Article extends StatelessWidget {
             onTap: (){
               tryLaunch(articleUrl);
             },
-            child: Image.network(
-              imgUrl,
-              errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
-                return Image.network("https://i09.kanobu.ru/r/98337ae40ef114cf07c92cac8dbb9688/1040x700/u.kanobu.ru/editor/images/51/c48787a0-4259-47a3-b32a-ddb4f311c753.jpg");
-              },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.network(
+                imgUrl,
+                errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
+                  return Image.network(
+                    animeGirlsUrl,
+                    loadingBuilder: (context, child, progress){
+                      return progress == null
+                          ? child
+                          : Container(
+                        color: Colors.grey[300],
+                        padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                          ),
+                        ),
+                      );
+                    },
+                    errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
+                      return Container(
+                        color: Colors.grey[300],
+                        padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                loadingBuilder: (context, child, progress){
+                  return progress == null
+                  ? child
+                  : Container(
+                    color: Colors.grey[300],
+                    padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Text(
