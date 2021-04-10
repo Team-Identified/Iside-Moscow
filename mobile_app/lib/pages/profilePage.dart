@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/config.dart';
+import 'package:mobile_app/tools.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ProfileState extends State<ProfilePage> {
           appBar: AppBar(
             title:Text("Profile"),
             centerTitle: true,
-            backgroundColor: Colors.deepPurpleAccent[700],
+            backgroundColor: themeColor,
           ),
           backgroundColor: Colors.grey[300],
           body: Center(
@@ -30,8 +31,7 @@ class _ProfileState extends State<ProfilePage> {
                 Text('Profile page'),
                 TextButton(
                   onPressed: () {
-                    storage.delete(key: 'refresh_jwt');
-                    storage.delete(key: 'access_jwt');
+                    logOut();
                     widget.onLogOutPressed();
                   },
                   child: Text("LOG OUT")

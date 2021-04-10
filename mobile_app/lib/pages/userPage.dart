@@ -10,14 +10,11 @@ import '../tools.dart';
 class UserPage extends StatefulWidget {
   @override
   _UserPageState createState() => _UserPageState();
-
-
 }
 
 class _UserPageState extends State<UserPage> {
   Widget currentPage;
   String currentPageName;
-
 
   Future<String> setPageName() async {
     if (currentPageName != null){

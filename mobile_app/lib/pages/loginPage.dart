@@ -4,6 +4,7 @@ import 'dart:convert' show json;
 import 'package:mobile_app/config.dart';
 import 'package:mobile_app/components/Button.dart';
 import 'package:mobile_app/components/AlreadyHaveAnAccount.dart';
+import 'package:mobile_app/components/authErrorMessage.dart';
 
 void displayDialog(context, title, text) => showDialog(
       context: context,
@@ -11,15 +12,36 @@ void displayDialog(context, title, text) => showDialog(
           AlertDialog(title: Text(title), content: Text(text)),
     );
 
-class LoginPage extends StatelessWidget {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class LoginPage extends StatefulWidget {
   final VoidCallback onSignUpButtonPressed;
   final VoidCallback onSubmitButtonPressed;
+
 
   LoginPage(
       {@required this.onSignUpButtonPressed,
       @required this.onSubmitButtonPressed});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  List<Widget> errorMessages = [];
+
+  void addErrorMessage(String text){
+    setState(() {
+      errorMessages.add(AuthErrorMessage(text: text));
+      errorMessages.add(SizedBox(height: 5.0));
+    });
+  }
+
+  void clearErrorMessages(){
+    setState(() {
+      errorMessages = [];
+    });
+  }
 
   Future<Map> attemptLogIn(String username, String password) async {
     var res = await http.post(Uri.http(SERVER_URL, '/auth/jwt/create/'),
@@ -39,7 +61,7 @@ class LoginPage extends StatelessWidget {
             "LOGIN",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 0.03),
+          SizedBox(height: 5.0),
           TextField(
             controller: _usernameController,
             decoration: InputDecoration(
@@ -47,7 +69,6 @@ class LoginPage extends StatelessWidget {
                 border: InputBorder.none,
                 hintText: 'Username'),
           ),
-          SizedBox(height: 0.03),
           TextField(
             controller: _passwordController,
             obscureText: true,
@@ -55,6 +76,11 @@ class LoginPage extends StatelessWidget {
                 contentPadding: EdgeInsets.all(20.0),
                 border: InputBorder.none,
                 hintText: 'Password'),
+          ),
+          Container(
+            child: Column(
+              children: errorMessages,
+            ),
           ),
           Button(
             text: "LOGIN",
@@ -64,29 +90,36 @@ class LoginPage extends StatelessWidget {
               Map res = await attemptLogIn(username, password);
               Map body = res["body"];
               int statusCode = res["statuscode"];
-              String title = "Error";
+              clearErrorMessages();
               if (statusCode >= 400) {
+                bool errorRaised = false;
                 if (body.containsKey("username")) {
-                  displayDialog(context, title, "Your username can't be blank");
-                } else if (body.containsKey("password")) {
-                  displayDialog(context, title, "Your password can't be blank");
-                } else if (body.containsKey("detail")) {
-                  displayDialog(context, title, body["detail"]);
-                } else {
-                  displayDialog(context, title, "Unknown error happened");
+                  errorRaised = true;
+                  addErrorMessage("Username field may not be blank");
+                }
+                if (body.containsKey("password")) {
+                  errorRaised = true;
+                  addErrorMessage("Password field may not be blank");
+                }
+                if (body.containsKey("detail")) {
+                  errorRaised = true;
+                  addErrorMessage(body["detail"]);
+                }
+                if (!errorRaised) {
+                  addErrorMessage("Unknown error happened");
                 }
               }
               if (statusCode == 200) {
                 storage.write(key: "access_jwt", value: body["access"]);
                 storage.write(key: "refresh_jwt", value: body["refresh"]);
-                onSubmitButtonPressed();
+                widget.onSubmitButtonPressed();
               }
             },
           ),
-          SizedBox(height: 0.03),
+          SizedBox(height: 5.0),
           AlreadyHaveAnAccount(
             press: () {
-              onSignUpButtonPressed();
+              widget.onSignUpButtonPressed();
             },
           ),
         ],

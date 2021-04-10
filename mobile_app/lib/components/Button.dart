@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/config.dart';
+
 
 class Button extends StatelessWidget {
   final String text;
   final Function press;
-  final Color color, textColor;
-  const Button({
-    Key key,
-    this.text,
-    this.press,
-    this.color=Colors.deepPurple,
-    this.textColor = Colors.white,
-  }) : super(key: key);
+
+  Button({
+    @required this.text,
+    @required this.press,
+  });
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.7,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(29),
-        child: TextButton(
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all(Colors.deepPurple),
-            backgroundColor: MaterialStateProperty.all(Colors.purple),
-          ),
-          onPressed: press,
-          child: Text(
-            text,
-            style: TextStyle(color: textColor),
-          ),
+      width: screenWidth * 0.7,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.white,
+          backgroundColor: themeColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        ),
+        onPressed: press,
+        child: Text(
+          text,
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );

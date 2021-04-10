@@ -1,51 +1,65 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:mobile_app/components/NearbyMap.dart';
+import 'package:mobile_app/components/locationPermissionErrorPage.dart';
 import 'package:mobile_app/config.dart';
 import 'package:mobile_app/tools.dart';
 import 'package:mobile_app/components/nearbyObjectsList.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
 
 
 class HomePage extends StatefulWidget {
+  final void Function(int) onGoToObject;
+
+  HomePage({Key key, @required this.onGoToObject}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  bool updateTrigger = false;
 
   Future<String> getLocation() async{
-    if (locationData == null)
-      await updateLocation();
-    return "location updated";
+    bool locationWorking = await canGetLocation();
+    if (locationWorking) {
+      if (locationData == null){
+        await updateLocation();
+      }
+      return "location updated";
+    }
+    else return "location error";
   }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text("Home"),
           centerTitle: true,
-          backgroundColor: Colors.deepPurpleAccent[700],
+          backgroundColor: themeColor,
         ),
         backgroundColor: Colors.white,
         body: FutureBuilder<String>(
           future: getLocation(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.hasData && snapshot.data == "location updated") {
               return Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: NearbyMap(height: 300.0),
+                      padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        child: NearbyMap(height: screenHeight / 3)
+                      ),
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "Nearby Objects",
+                      " Nearby Objects",
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 21.0,
@@ -58,11 +72,20 @@ class _HomePageState extends State<HomePage> {
                     Flexible(
                         child: Container(
                             color: Colors.grey[300],
-                            child: NearbyObjectsList()
+                            child: NearbyObjectsList(onGoToObject: widget.onGoToObject)
                         )
                     ),
                   ],
                 ),
+              );
+            }
+            else if (snapshot.hasData && snapshot.data == "location error"){
+              return LocationPermissionErrorPage(
+                updateFunction: () {
+                  setState(() {
+                    updateTrigger = !updateTrigger;
+                  });
+                },
               );
             }
             else{

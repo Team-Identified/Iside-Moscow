@@ -50,31 +50,7 @@ class NearbyMap extends StatelessWidget {
             double markerLon = snapshot.data['nearbyObjects'][i]['longitude'];
             String markerCategory = snapshot.data['nearbyObjects'][i]['category'];
 
-            IconData markerIconData;
-            if (markerCategory == "monument")
-              markerIconData = Icons.account_circle;
-            else if (markerCategory == "theatre")
-              markerIconData = Icons.theater_comedy;
-            else if (markerCategory == "museum")
-              markerIconData = Icons.museum;
-            else if (markerCategory == "government building")
-              markerIconData = Icons.account_balance;
-            else if (markerCategory == "mall")
-              markerIconData = Icons.local_mall;
-            else if (markerCategory == "red square object")
-              markerIconData = Icons.star;
-            else if (markerCategory == "religious building")
-              markerIconData = Icons.article;
-            else if (markerCategory == "restaurant")
-              markerIconData = Icons.restaurant;
-            else if (markerCategory == "skyscraper")
-              markerIconData = Icons.apartment;
-            else if (markerCategory == "stadium")
-              markerIconData = Icons.sports_soccer;
-            else if (markerCategory == "unknown")
-              markerIconData = Icons.build_circle_rounded;
-            else
-              markerIconData = Icons.location_on;
+            IconData markerIconData = getIcon(markerCategory);
 
             Marker marker = Marker(
               width: 80.0,

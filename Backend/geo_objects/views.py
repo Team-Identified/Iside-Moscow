@@ -1,3 +1,4 @@
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.reverse import reverse
@@ -18,6 +19,15 @@ class GeoObjectViewSet(viewsets.ModelViewSet):
     queryset = GeoObject.objects.all()
     serializer_class = GeoObjectSerializer
     permission_classes = [IsAdminUser]
+    # permission_classes = [AllowAny]
+
+
+class GeoObjectRetrieveViewSet(viewsets.ViewSet):
+    def retrieve(self, request, pk=None):
+        queryset = GeoObject.objects.all()
+        geo_object = get_object_or_404(queryset, pk=pk)
+        serializer = GeoObjectSerializer(geo_object, context={'request': request})
+        return Response(serializer.data)
 
 
 class SubmittedGeoObjectViewSet(viewsets.ModelViewSet):
@@ -37,8 +47,8 @@ class GetNearbyObjectsForUserView(APIView):
     """
     Get nearby objects for user by coordinates
     """
-    permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
+
+    permission_classes = [AllowAny]
 
     @staticmethod
     def post(request):

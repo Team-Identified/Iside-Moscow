@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' show json, base64, ascii;
+import 'package:mobile_app/components/authErrorMessage.dart';
+import 'dart:convert' show json;
 import 'package:mobile_app/config.dart';
 import 'package:mobile_app/pages/loginPage.dart';
 import 'package:mobile_app/components/Button.dart';
@@ -8,13 +9,35 @@ import 'package:mobile_app/components/AlreadyHaveAnAccount.dart';
 
 import 'loginPage.dart';
 
-class SignUpPage extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class SignUpPage extends StatefulWidget {
   final VoidCallback onLogInButtonPressed;
-
   SignUpPage({@required this.onLogInButtonPressed});
+
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController _emailController = TextEditingController();
+
+  final TextEditingController _usernameController = TextEditingController();
+
+  final TextEditingController _passwordController = TextEditingController();
+
+  List<Widget> errorMessages = [];
+
+  void addErrorMessage(String text){
+    setState(() {
+      errorMessages.add(AuthErrorMessage(text: text));
+      errorMessages.add(SizedBox(height: 5.0));
+    });
+  }
+
+  void clearErrorMessages(){
+    setState(() {
+      errorMessages = [];
+    });
+  }
 
   Future<Map> attemptSignUp(
       String email, String username, String password) async {
@@ -58,6 +81,11 @@ class SignUpPage extends StatelessWidget {
                 border: InputBorder.none,
                 hintText: 'Password'),
           ),
+          Container(
+            child: Column(
+              children: errorMessages,
+            ),
+          ),
           Button(
             text: "SIGN UP",
             press: () async {
@@ -67,31 +95,37 @@ class SignUpPage extends StatelessWidget {
               Map res = await attemptSignUp(email, username, password);
               int statusCode = res["statuscode"];
               Map body = res["body"];
-              String title = "Error";
+              clearErrorMessages();
               if (statusCode == 201) {
-                onLogInButtonPressed();
+                widget.onLogInButtonPressed();
               }
               else if(statusCode>=400) {
                 if (email.length == 0 || username.length == 0 || password.length == 0) {
-                    displayDialog(context, title, "Please fill in every field given");
+                  addErrorMessage("Please fill in all input fields");
                 }
-                else if (body.containsKey("email")) {
-                  displayDialog(context, title, body["email"][0]);
+                if (body.containsKey("email")) {
+                  String text = body["email"][0];
+                  if (text != "This field may not be blank.")
+                    addErrorMessage(text);
                 }
-                else if (body.containsKey("username")) {
-                  displayDialog(context, title, body["username"][0]);
+                if (body.containsKey("username")) {
+                  String text = body["username"][0];
+                  if (text != "This field may not be blank.")
+                    addErrorMessage(text);
                 }
-                else if (body.containsKey("password")) {
-                  displayDialog(context, title, body["password"][0]);
+                if (body.containsKey("password")) {
+                  String text = body["password"][0];
+                  if (text != "This field may not be blank.")
+                    addErrorMessage(text);
                 }
               }
             },
           ),
-          SizedBox(height: 0.03),
+          SizedBox(height: 5.0),
           AlreadyHaveAnAccount(
             login: false,
             press: () {
-              onLogInButtonPressed();
+              widget.onLogInButtonPressed();
             },
           ),
         ],

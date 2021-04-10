@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_app/components/unauthorizedPage.dart';
 import 'package:mobile_app/tools.dart';
 import 'package:intl/intl.dart';
-import '../config.dart';
+import 'package:mobile_app/config.dart';
 
 
 class NewsPage extends StatefulWidget {
@@ -14,8 +15,19 @@ class _NewsPageState extends State<NewsPage> {
   List<Map> newsArticles = [];
   int currentPage = 0;
   bool reachedEnd = false;
+  bool loggedIn = true;
 
   Future<void> getMoreNews() async {
+    bool realLog = await isLoggedIn();
+    if (loggedIn != realLog){
+      setState(() {
+        loggedIn = realLog;
+      });
+    }
+
+    if (!loggedIn)
+        return;
+
     if (reachedEnd)
       return;
 
@@ -41,51 +53,58 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("News"),
-          centerTitle: true,
-          backgroundColor: Colors.deepPurpleAccent[700],
-        ),
-        backgroundColor: Colors.grey[300],
-        body: ListView.separated(
-          itemCount: newsArticles.length + 1,
-          addAutomaticKeepAlives: false,
-          cacheExtent: 100.0,
-          itemBuilder: (context, index){
-            if (index < newsArticles.length) {
-              return Article(
-                title: newsArticles[index]['title'],
-                source: newsArticles[index]['source'],
-                description: newsArticles[index]['description'],
-                articleUrl: newsArticles[index]['article_url'],
-                imgUrl: newsArticles[index]['image_url'],
-                publishedAt: DateTime.parse(
-                    newsArticles[index]['publish_date']),
-              );
-            }
-            else{
-              getMoreNews();
-              return Container(
+    if (!loggedIn){
+      getMoreNews();
+      return UnauthorizedPage();
+    }
+    else {
+      return MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("News"),
+            centerTitle: true,
+            backgroundColor: themeColor,
+          ),
+          backgroundColor: Colors.grey[300],
+          body: ListView.separated(
+            itemCount: newsArticles.length + 1,
+            addAutomaticKeepAlives: false,
+            cacheExtent: 100.0,
+            itemBuilder: (context, index) {
+              if (index < newsArticles.length) {
+                return Article(
+                  title: newsArticles[index]['title'],
+                  source: newsArticles[index]['source'],
+                  description: newsArticles[index]['description'],
+                  articleUrl: newsArticles[index]['article_url'],
+                  imgUrl: newsArticles[index]['image_url'],
+                  publishedAt: DateTime.parse(
+                      newsArticles[index]['publish_date']),
+                );
+              }
+              else {
+                getMoreNews();
+                return Container(
                   child: Column(
                     children: [
                       SizedBox(height: 10.0),
                       CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.deepPurple),
                       ),
                       SizedBox(height: 15.0),
                     ],
                   ),
-              );
-            }
-          },
-          separatorBuilder: (BuildContext context, int index){
-            return SizedBox(height: 15.0);
-          },
+                );
+              }
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(height: 15.0);
+            },
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
 
