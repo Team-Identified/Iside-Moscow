@@ -79,26 +79,22 @@ class _UserPageState extends State<UserPage> {
           }
           else{
             return MaterialApp(
-                home: Scaffold(
-                  appBar: AppBar(
-                    title: Text("Profile"),
-                    centerTitle: true,
-                    backgroundColor: Colors.deepPurpleAccent[700],
-                  ),
-                  backgroundColor: Colors.white,
-                  body: Center(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                            ),
-                            SizedBox(height: 20.0),
-                            Text("Loading", style: TextStyle(fontSize: 20.0),),
-                          ]
-                      )
-                  ),
-                )
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                backgroundColor: Colors.white,
+                body: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                      ),
+                      SizedBox(height: 20.0),
+                      Text("Loading", style: TextStyle(fontSize: 20.0),),
+                    ]
+                  )
+                ),
+              )
             );
           }
         }

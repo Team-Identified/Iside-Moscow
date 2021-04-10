@@ -35,12 +35,8 @@ class _HomePageState extends State<HomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-          centerTitle: true,
-          backgroundColor: themeColor,
-        ),
         backgroundColor: Colors.white,
         body: FutureBuilder<String>(
           future: getLocation(),
@@ -70,10 +66,10 @@ class _HomePageState extends State<HomePage> {
                       height: 3.0,
                       child: Container(color: Colors.deepPurple,),),
                     Flexible(
-                        child: Container(
-                            color: Colors.grey[300],
-                            child: NearbyObjectsList(onGoToObject: widget.onGoToObject)
-                        )
+                      child: Container(
+                        color: Colors.grey[300],
+                        child: NearbyObjectsList(onGoToObject: widget.onGoToObject)
+                      )
                     ),
                   ],
                 ),

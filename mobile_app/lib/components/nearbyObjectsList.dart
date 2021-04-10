@@ -31,6 +31,7 @@ class _NearbyObjectsListState extends State<NearbyObjectsList> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      padding: EdgeInsets.all(0.0),
       shrinkWrap: true,
       physics: ScrollPhysics(),
       itemCount: max(nearbyObjects.length, 1),

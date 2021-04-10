@@ -16,30 +16,25 @@ class _ProfileState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home:
-        Scaffold(
-          appBar: AppBar(
-            title:Text("Profile"),
-            centerTitle: true,
-            backgroundColor: themeColor,
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.grey[300],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Profile page'),
+              TextButton(
+                onPressed: () {
+                  logOut();
+                  widget.onLogOutPressed();
+                },
+                child: Text("LOG OUT")
+              ),
+            ],
           ),
-          backgroundColor: Colors.grey[300],
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Profile page'),
-                TextButton(
-                  onPressed: () {
-                    logOut();
-                    widget.onLogOutPressed();
-                  },
-                  child: Text("LOG OUT")
-                ),
-              ],
-            ),
-          ),
-        )
+        ),
+      )
     );
   }
 }

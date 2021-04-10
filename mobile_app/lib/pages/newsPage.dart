@@ -59,14 +59,11 @@ class _NewsPageState extends State<NewsPage> {
     }
     else {
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
-            title: Text("News"),
-            centerTitle: true,
-            backgroundColor: themeColor,
-          ),
           backgroundColor: Colors.grey[300],
           body: ListView.separated(
+            padding: EdgeInsets.all(0.0),
             itemCount: newsArticles.length + 1,
             addAutomaticKeepAlives: false,
             cacheExtent: 100.0,

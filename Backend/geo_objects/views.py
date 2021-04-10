@@ -19,7 +19,6 @@ class GeoObjectViewSet(viewsets.ModelViewSet):
     queryset = GeoObject.objects.all()
     serializer_class = GeoObjectSerializer
     permission_classes = [IsAdminUser]
-    # permission_classes = [AllowAny]
 
 
 class GeoObjectRetrieveViewSet(viewsets.ViewSet):

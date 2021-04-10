@@ -26,30 +26,34 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _children[_currIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.blueGrey[500],
-          selectedItemColor: Colors.deepPurpleAccent,
-          onTap: onTappedBar,
-          iconSize: 27.0,
-          currentIndex: _currIndex,
-          backgroundColor: Colors.white,
-          items:
-          [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.article_rounded),
-                label: 'News'
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home'
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-                label: 'Profile'
-            ),
-          ]
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(child: _children[_currIndex]),
+        backgroundColor: Colors.deepPurpleAccent,
+        bottomNavigationBar: BottomNavigationBar(
+            unselectedItemColor: Colors.blueGrey[500],
+            selectedItemColor: Colors.deepPurpleAccent,
+            onTap: onTappedBar,
+            iconSize: 27.0,
+            currentIndex: _currIndex,
+            backgroundColor: Colors.white,
+            items:
+            [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.article_rounded),
+                  label: 'News'
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home'
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+                  label: 'Profile'
+              ),
+            ]
+        ),
       ),
     );
   }

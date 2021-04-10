@@ -33,13 +33,9 @@ class _ObjectPageState extends State<ObjectPage> {
     if (objectData == null){
       loadData();
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.grey[300],
-          appBar: AppBar(
-            title: Text("Object Page"),
-            centerTitle: true,
-            backgroundColor: Colors.deepPurpleAccent[700],
-          ),
           body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -129,6 +125,7 @@ class _ObjectPageState extends State<ObjectPage> {
       );
 
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.white,
           body: Container(
@@ -190,7 +187,7 @@ class _ObjectPageState extends State<ObjectPage> {
                       ),
                     ),
                     Positioned(
-                      top: 35.0,
+                      top: 3.0,
                       left: 10.0,
                       child: Container(
                         child: ElevatedButton(

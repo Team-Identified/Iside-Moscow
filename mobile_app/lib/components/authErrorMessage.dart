@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/config.dart';
 
 
 class AuthErrorMessage extends StatelessWidget {
@@ -18,13 +17,12 @@ class AuthErrorMessage extends StatelessWidget {
       borderRadius: BorderRadius.circular(20.0),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
-        width: screenWidth * 0.9,
-        color: Colors.red,
+        color: Colors.redAccent.withOpacity(0.1),
         child: Text(
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.red,
             fontSize: 15.0,
           ),
         ),
