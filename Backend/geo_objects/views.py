@@ -4,9 +4,8 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from geo_objects.models import GeoObject, SubmittedGeoObject
 from geo_objects.serializers import GeoObjectSerializer, SubmittedGeoObjectSerializer
-from geo_objects.permissions import IsContributorOrStaffOrReadOnly
 from geo_objects.tools import get_nearby_objects
-from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.views import APIView
 from rest_framework import viewsets
 
@@ -29,17 +28,50 @@ class GeoObjectRetrieveViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
-class SubmittedGeoObjectViewSet(viewsets.ModelViewSet):
-    """
-    This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
-    """
+class SubmittedGeoObjectViewSet(viewsets.ViewSet):
     queryset = SubmittedGeoObject.objects.all()
     serializer_class = SubmittedGeoObjectSerializer
-    permission_classes = [IsContributorOrStaffOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(contributor=self.request.user)
+    def retrieve(self, request, pk=None):
+        queryset = SubmittedGeoObject.objects.all()
+        geo_object = get_object_or_404(queryset, pk=pk)
+        if geo_object.contributor == request.user or request.user.is_staff:
+            serializer = SubmittedGeoObjectSerializer(geo_object, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"detail": "forbidden"}, status=status.HTTP_403_FORBIDDEN)
+
+    def list(self, request):
+        if request.user.is_authenticated:
+            if request.user.is_staff:
+                queryset = SubmittedGeoObject.objects.all()
+            else:
+                queryset = SubmittedGeoObject.objects.filter(contributor=request.user.id)
+            serializer = SubmittedGeoObjectSerializer(queryset, many=True, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"detail": "Authentication credentials were not provided."},
+                            status=status.HTTP_401_UNAUTHORIZED)
+
+    def create(self, request):
+        serializer = SubmittedGeoObjectSerializer(data=request.data)
+        if serializer.is_valid():
+            contributor = None
+            if request.user.is_authenticated:
+                contributor = request.user
+            serializer.save(contributor=contributor)
+            return Response({"status": "ok"}, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None):
+        queryset = SubmittedGeoObject.objects.all()
+        geo_object = get_object_or_404(queryset, pk=pk)
+        if geo_object.contributor == request.user or request.user.is_staff:
+            geo_object.delete()
+            return Response({"status": "ok"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"detail": "forbidden"}, status=status.HTTP_403_FORBIDDEN)
 
 
 class GetNearbyObjectsForUserView(APIView):
@@ -73,6 +105,6 @@ class APIRootView(APIView):
         endpoints = {
             'get nearby objects': reverse('get_nearby', request=request),
             'geo object list': request.build_absolute_uri('geo_object-list'),
-            'submitted geo object list': request.build_absolute_uri('submitted_geo_object-list'),
+            'submitted geo object list': request.build_absolute_uri('submitted_geo_objects'),
         }
         return Response(data=endpoints, status=status.HTTP_200_OK)

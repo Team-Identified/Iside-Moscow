@@ -12,6 +12,7 @@ CATEGORY_CHOICES = [
     ('SS', 'Skyscraper'),
     ('SD', 'Stadium'),
     ('UK', 'Unknown'),
+    ('OT', 'Other'),
 ]
 
 
@@ -37,7 +38,7 @@ class GeoObject(models.Model):
 
 class SubmittedGeoObject(models.Model):
     category = models.CharField(choices=CATEGORY_CHOICES, default='Unknown', max_length=100)
-    name_ru = models.CharField(max_length=200, null=True, default=None, blank=True)
+    name_ru = models.CharField(max_length=200)
     name_en = models.CharField(max_length=200, null=True, default=None, blank=True)
     wiki_ru = models.URLField(max_length=500, null=True, default=None, blank=True)
     wiki_en = models.URLField(max_length=500, null=True, default=None, blank=True)

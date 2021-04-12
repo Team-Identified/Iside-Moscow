@@ -25,6 +25,7 @@ class GeoObjectSerializer(serializers.ModelSerializer):
 
 class SubmittedGeoObjectSerializer(serializers.ModelSerializer):
     contributor = serializers.ReadOnlyField(source='contributor.username')
+    url = serializers.HyperlinkedIdentityField(view_name="submitted-detail")
 
     class Meta:
         model = SubmittedGeoObject

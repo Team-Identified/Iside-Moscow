@@ -5,8 +5,8 @@ from rest_framework.routers import DefaultRouter
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
 router.register(r'geo_object-list', views.GeoObjectViewSet)
-router.register(r'submitted_geo_object-list', views.SubmittedGeoObjectViewSet)
 router.register(r'geo_object_retrieve', views.GeoObjectRetrieveViewSet, basename='geo_object')
+router.register(r'submitted_geo_objects', views.SubmittedGeoObjectViewSet, basename='submitted')
 
 urlpatterns = [
     path('', views.APIRootView.as_view()),
