@@ -29,4 +29,5 @@ urlpatterns = [
 
     path('geo_objects/', include('geo_objects.urls')),
     path('news/', include('news.urls')),
+    path("reports/", include('reports.urls'))
 ]
