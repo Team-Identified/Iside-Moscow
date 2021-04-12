@@ -21,7 +21,7 @@ class ReportSerializer(serializers.ModelSerializer):
             "duplicate_problem",
             "other_problem",
             "description",
-            "creation_date"
+            "creation_datetime"
             "obj",
-            "user"
+            "user",
         ]
