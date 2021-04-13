@@ -83,11 +83,6 @@ class _UserPageState extends State<UserPage> {
           else{
             return MaterialApp(
                 home: Scaffold(
-                  appBar: AppBar(
-                    title: Text("Profile"),
-                    centerTitle: true,
-                    backgroundColor: Colors.deepPurpleAccent[700],
-                  ),
                   backgroundColor: Colors.white,
                   body: Center(
                       child: Column(
