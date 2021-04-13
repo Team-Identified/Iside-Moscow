@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/pages/homePage.dart';
 import 'package:mobile_app/pages/objectPage.dart';
-import '../tools.dart';
 
 
 class HomeObjectPage extends StatefulWidget {

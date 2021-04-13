@@ -14,3 +14,4 @@ final storage = FlutterSecureStorage();
 const String animeGirlsUrl = "https://i09.kanobu.ru/r/98337ae40ef114cf07c92cac8dbb9688/1040x700/u.kanobu.ru/editor/images/51/c48787a0-4259-47a3-b32a-ddb4f311c753.jpg";
 
 Location location = new Location();
+
