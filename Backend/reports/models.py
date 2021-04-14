@@ -16,7 +16,7 @@ class Report(models.Model):
     description = models.CharField(max_length=500, default="")
     creation_datetime = models.DateTimeField()
     obj = models.ForeignKey(GeoObject, related_name="reports", on_delete=models.CASCADE)
-    user = models.ForeignKey("auth.User", related_name="reports",
+    user = models.ForeignKey("auth.User", related_name="reports", blank=True, null=True,
                              default=None, on_delete=models.SET_DEFAULT)
 
     class Meta:
@@ -47,7 +47,8 @@ class Report(models.Model):
 
         problems = ", ".join(problems)
 
-        return f"Problems list: {problems} \n" + \
-            f"Description: {self.description if self.description != '' else 'none'}" + \
+        return f"Creator: {self.user}\n"\
+            f"Problems list: {problems} \n" + \
+            f"Description: {self.description if self.description != '' else 'none'}\n" + \
             f"Creation datetime: {self.creation_datetime}"
 

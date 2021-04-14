@@ -1,15 +1,19 @@
 from rest_framework import serializers
+from rest_framework.generics import get_object_or_404
+
 from .models import Report
+
 from geo_objects.serializers import GeoObjectSerializer
 
 
 class ReportSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
-    obj = GeoObjectSerializer(source="obj")
+    obj = GeoObjectSerializer(read_only=True)
 
     class Meta:
         model = Report
         fields = [
+            "id",
             "category_problem",
             "ru_name_problem",
             "en_name_problem",
@@ -21,7 +25,8 @@ class ReportSerializer(serializers.ModelSerializer):
             "duplicate_problem",
             "other_problem",
             "description",
-            "creation_datetime"
+            "creation_datetime",
             "obj",
             "user",
         ]
+
