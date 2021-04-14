@@ -3,20 +3,15 @@ from rest_framework.permissions import SAFE_METHODS
 
 
 class ReportsMainPermission(permissions.BasePermission):
-
     def has_object_permission(self, request, view, obj):
-
-        print(request.method)
-
         if request.method == "GET":
             return request.user.is_authenticated
-        if request.method == "POST":
+        elif request.method == "POST":
             return True
-        if request.method == "PATCH":
-            return request.user.is_authenticated and \
-                   (request.user.is_staff or obj.user == request.user)
-        if request.method == "DELETE":
-            return request.user.is_authenticated and  \
-                   (request.user.is_staff or obj.user == request.user)
-
-        return request in SAFE_METHODS
+        elif request.method == "PUT":
+            return request.user.is_authenticated and (request.user.is_staff or obj.user == request.user)
+        elif request.method == "DELETE":
+            print(f'DELETE: {request.user}, {obj.user}')
+            return request.user.is_authenticated and (request.user.is_staff or obj.user == request.user)
+        else:
+            return request in SAFE_METHODS
