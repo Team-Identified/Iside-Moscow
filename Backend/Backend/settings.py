@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'geo_objects.apps.GeoObjectsConfig',
     'authorization.apps.AuthorizationConfig',
     'news.apps.NewsConfig',
+    'reports.apps.ReportsConfig',
 
     # third party package for user registration and authentication endpoints
     'djoser',
