@@ -12,4 +12,5 @@ urlpatterns = [
     path('', views.APIRootView.as_view()),
     path('', include(router.urls)),
     path('get_nearby_objects', views.GetNearbyObjectsForUserView.as_view(), name='get_nearby'),
+    path('search', views.SearchObjectsView.as_view(), name='geoobjects-search'),
 ]

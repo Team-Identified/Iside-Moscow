@@ -2,12 +2,14 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.reverse import reverse
+from config import GEOOBJECTS_SEARCH_SIMILARITY
 from geo_objects.models import GeoObject, SubmittedGeoObject
 from geo_objects.serializers import GeoObjectSerializer, SubmittedGeoObjectSerializer
 from geo_objects.tools import get_nearby_objects
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.views import APIView
 from rest_framework import viewsets
+from fuzzywuzzy import fuzz
 
 
 class GeoObjectViewSet(viewsets.ModelViewSet):
@@ -99,11 +101,43 @@ class GetNearbyObjectsForUserView(APIView):
         return Response(data=data, status=status.HTTP_200_OK)
 
 
+class SearchObjectsView(APIView):
+
+    permission_classes = [AllowAny]
+
+    @staticmethod
+    def _compare(search_request: str, name_en: str, name_ru: str):
+        search_request = search_request.lower()
+        name_en = name_en.lower()
+        name_ru = name_ru.lower()
+        return max(fuzz.WRatio(search_request, name_en), fuzz.WRatio(search_request, name_ru))
+
+    @staticmethod
+    def post(request):
+        try:
+            request_string = request.data["request"]
+            if not isinstance(request_string, str):
+                raise TypeError
+        except (KeyError, TypeError):
+            return Response(data={"error": ["field request not found or wrong type"]},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        queryset = GeoObject.objects.all()
+        filtered = filter(
+            lambda x: SearchObjectsView._compare(request_string, x.name_ru, x.name_en) >= GEOOBJECTS_SEARCH_SIMILARITY,
+            queryset)
+
+        serializer = GeoObjectSerializer(filtered, many=True, context={"request": request})
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
 class APIRootView(APIView):
     @staticmethod
     def get(request):
         endpoints = {
             'get nearby objects': reverse('get_nearby', request=request),
+            'search objects by name': reverse('geoobjects-search', request=request),
             'geo object list': request.build_absolute_uri('geo_object-list'),
             'submitted geo object list': request.build_absolute_uri('submitted_geo_objects'),
         }
