@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from geo_objects.models import GeoObject, SubmittedGeoObject
+from geo_objects.models import GeoObject, SubmittedGeoObject, SearchRequest, LocationRequest
 
 
 class GeoObjectSerializer(serializers.ModelSerializer):
@@ -43,3 +43,15 @@ class SubmittedGeoObjectSerializer(serializers.ModelSerializer):
             'longitude',
             'contributor',
         ]
+
+
+class SearchRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SearchRequest
+        fields = ['search_query']
+
+
+class LocationRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocationRequest
+        fields = ['latitude', 'longitude']

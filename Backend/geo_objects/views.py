@@ -2,9 +2,10 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.reverse import reverse
-from config import GEOOBJECTS_SEARCH_SIMILARITY
+from config import GEO_OBJECTS_SEARCH_SIMILARITY, GEO_OBJECTS_SEARCH_MAX_RESULTS
 from geo_objects.models import GeoObject, SubmittedGeoObject
-from geo_objects.serializers import GeoObjectSerializer, SubmittedGeoObjectSerializer
+from geo_objects.serializers import GeoObjectSerializer, SubmittedGeoObjectSerializer, SearchRequestSerializer, \
+    LocationRequestSerializer
 from geo_objects.tools import get_nearby_objects
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.views import APIView
@@ -82,12 +83,16 @@ class GetNearbyObjectsForUserView(APIView):
     """
 
     permission_classes = [AllowAny]
+    serializer_class = LocationRequestSerializer
 
     @staticmethod
     def post(request):
-        data = request.data
-        latitude = data['latitude']
-        longitude = data['longitude']
+        request_serializer = LocationRequestSerializer(data=request.data)
+        if request_serializer.is_valid():
+            latitude = request_serializer.data.get("latitude")
+            longitude = request_serializer.data.get("longitude")
+        else:
+            return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         objects = get_nearby_objects(request, (latitude, longitude))
         data = {
@@ -102,8 +107,8 @@ class GetNearbyObjectsForUserView(APIView):
 
 
 class SearchObjectsView(APIView):
-
     permission_classes = [AllowAny]
+    serializer_class = SearchRequestSerializer
 
     @staticmethod
     def _compare(search_request: str, name_en: str, name_ru: str):
@@ -112,24 +117,39 @@ class SearchObjectsView(APIView):
         name_ru = name_ru.lower()
         return max(fuzz.WRatio(search_request, name_en), fuzz.WRatio(search_request, name_ru))
 
-    @staticmethod
-    def post(request):
-        try:
-            request_string = request.data["request"]
-            if not isinstance(request_string, str):
-                raise TypeError
-        except (KeyError, TypeError):
-            return Response(data={"error": ["field request not found or wrong type"]},
-                            status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request):
+        request_serializer = SearchRequestSerializer(data=request.data)
+        if request_serializer.is_valid():
+            request_string = request_serializer.data.get("search_query")
+        else:
+            return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        queryset = GeoObject.objects.all()
-        filtered = filter(
-            lambda x: SearchObjectsView._compare(request_string, x.name_ru, x.name_en) >= GEOOBJECTS_SEARCH_SIMILARITY,
-            queryset)
+        queryset = list(GeoObject.objects.all())
+        for i, geo_object in enumerate(queryset):
+            queryset[i] = {
+                "object": geo_object,
+                "score": self._compare(request_string, geo_object.name_ru, geo_object.name_en),
+            }
+        result = list(filter(lambda x: x["score"] >= GEO_OBJECTS_SEARCH_SIMILARITY, queryset))
+        result.sort(key=lambda x: x["score"], reverse=True)
+        result = result[:GEO_OBJECTS_SEARCH_MAX_RESULTS]
 
-        serializer = GeoObjectSerializer(filtered, many=True, context={"request": request})
+        result_data = []
+        for item in result:
+            item_data = {
+                "object": GeoObjectSerializer(item["object"], context={"request": request}).data,
+                "score": item["score"],
+            }
+            result_data.append(item_data)
 
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        response = {
+            "status": "ok",
+            "search query": request_string,
+            "count": len(result_data),
+            "results": result_data,
+        }
+
+        return Response(data=response, status=status.HTTP_200_OK)
 
 
 class APIRootView(APIView):

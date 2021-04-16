@@ -105,3 +105,12 @@ class QuadTree(models.Model):
 
     def __str__(self):
         return f'QuadTree: Boundary ({self.boundary.__str__()}), Divided: {self.divided}'
+
+
+class SearchRequest(models.Model):
+    search_query = models.CharField(max_length=300)
+
+
+class LocationRequest(models.Model):
+    latitude = models.FloatField()
+    longitude = models.FloatField()
