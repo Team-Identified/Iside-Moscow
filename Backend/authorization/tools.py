@@ -1,37 +1,31 @@
-from rest_framework.decorators import api_view
-from rest_framework.views import Response
 from .models import UserProfile
-from config import RANKS, RANKS_TO_POINTS, MAX_POINTS
+from config import RANKS, MAX_POINTS
+
+
+def constrain(x: int, lower: int, upper: int) -> int:
+    return max(min(upper, x), lower)
+
+
+def belongs(x: int, score_range: dict) -> bool:
+    return score_range['lower'] <= x <= score_range['upper']
 
 
 def _get_rank_for_points(points: int):
-    if points > MAX_POINTS:
-        points = MAX_POINTS
-    elif points < 0:
-        points = 0
+    points = constrain(points, 0, MAX_POINTS)
 
-    for i in RANKS_TO_POINTS:
-        if points in RANKS_TO_POINTS[i]:
-            return i, RANKS_TO_POINTS[i]
+    for rank in RANKS:
+        if belongs(points, rank.score_range):
+            return rank
 
 
 def update_user_points(user, rank_points: int):
     user = UserProfile.objects.get(user=user)
     current_points = user.points
 
-    current_rank, current_range = _get_rank_for_points(current_points)
-
     current_points += rank_points
-    if current_points > MAX_POINTS:
-        current_points = MAX_POINTS
-    elif current_points < 0:
-        current_points = 0
-
-    print(current_rank, current_range)
-    if current_points > current_range[-1] or current_points < current_range[0]:
-        current_rank, _ = _get_rank_for_points(current_points)
+    current_points = constrain(current_points, 0, MAX_POINTS)
+    current_rank = _get_rank_for_points(current_points)
 
     user.points = current_points
-    user.rank = f"Rank {current_rank}"
-
+    user.rank = current_rank.rank_name
     user.save()

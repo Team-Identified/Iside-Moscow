@@ -16,33 +16,17 @@ NEWS_PAGINATION = 10  # articles per page
 GEO_OBJECTS_SEARCH_SIMILARITY = 80
 GEO_OBJECTS_SEARCH_MAX_RESULTS = 30
 
-RankInfo = namedtuple("RankInfo", ("en_name", "ru_name", "score_range"))
-
-# TODO: update rank points
-RANKS_TO_POINTS = {
-    1: list(range(0, 6)),
-    2: list(range(5, 11)),
-    3: list(range(10, 16)),
-    4: list(range(15, 21)),
-    5: list(range(20, 26)),
-    6: list(range(25, 31)),
-    7: list(range(30, 36)),
-    8: list(range(35, 41)),
-    9: list(range(40, 46)),
-    10: list(range(45, 51)),
-}
-
-MAX_POINTS = 50
-
-RANKS = {
-    1: RankInfo("Newbie", "Новичок", RANKS_TO_POINTS[1]),
-    2: RankInfo("Amateur", "Любитель", RANKS_TO_POINTS[2]),
-    3: RankInfo("Intermediate", "", RANKS_TO_POINTS[3]),  # TODO: pick normal translation or change en name
-    4: RankInfo("Advanced", "Продвинутый", RANKS_TO_POINTS[4]),
-    5: RankInfo("Expert", "Эксперт", RANKS_TO_POINTS[5]),
-    6: RankInfo("Master", "Мастер", RANKS_TO_POINTS[6]),
-    7: RankInfo("Enlightened", "Просветленный", RANKS_TO_POINTS[7]),
-    8: RankInfo("Guru", "Гуру", RANKS_TO_POINTS[8]),
-    9: RankInfo("Doka", "Дока", RANKS_TO_POINTS[9]),
-    10: RankInfo("Godlike", "Богоподобный", RANKS_TO_POINTS[10]),
-}
+RankInfo = namedtuple("RankInfo", ("rank_name", "score_range"))
+MAX_POINTS = 69420
+RANKS = [
+    RankInfo("Новичок", {"lower": 0, "upper": 10}),
+    RankInfo("Любитель", {"lower": 11, "upper": 30}),
+    RankInfo("Знаток", {"lower": 31, "upper": 90}),
+    RankInfo("Продвинутый", {"lower": 91, "upper": 180}),
+    RankInfo("Эксперт", {"lower": 181, "upper": 300}),
+    RankInfo("Мастер", {"lower": 301, "upper": 450}),
+    RankInfo("Просветленный", {"lower": 451, "upper": 650}),
+    RankInfo("Гуру", {"lower": 651, "upper": 900}),
+    RankInfo("Дока", {"lower": 901, "upper": 1200}),
+    RankInfo("Богоподобный", {"lower": 1201, "upper": MAX_POINTS}),
+]
