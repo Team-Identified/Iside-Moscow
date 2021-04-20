@@ -1,17 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:mobile_app/config.dart';
+import 'package:mobile_app/services/locationService.dart';
 import 'package:mobile_app/tools.dart';
-import 'package:mobile_app/components/nearbyObjectsList.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:provider/provider.dart';
 
 
-class NearbyMap extends StatelessWidget {
+class NearbyMap extends StatefulWidget {
   final double height;
 
-  const NearbyMap({this.height});
+  NearbyMap({this.height});
+
+  @override
+  _NearbyMapState createState() => _NearbyMapState();
+}
+
+class _NearbyMapState extends State<NearbyMap> {
+  var locationData;
 
   Future<Map> loadData() async{
     Map requestData = {
@@ -39,6 +45,8 @@ class NearbyMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    locationData = Provider.of<UserLocation>(context);
+
     return FutureBuilder<Map>(
       future: loadData(),
       builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
@@ -76,7 +84,7 @@ class NearbyMap extends StatelessWidget {
           markers.add(myMarker);
 
           return Container(
-            height: height,
+            height: widget.height,
             child: FlutterMap(
               options: MapOptions(
                 center: LatLng(locationData.latitude, locationData.longitude),
@@ -96,7 +104,7 @@ class NearbyMap extends StatelessWidget {
         }
         else{
           return Container(
-            height: height,
+            height: widget.height,
             child: Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),

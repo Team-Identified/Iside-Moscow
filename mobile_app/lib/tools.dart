@@ -4,10 +4,8 @@ import 'package:mobile_app/config.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' show json, utf8;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:location/location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 
 Future<void> refreshAccess() async {
@@ -134,40 +132,10 @@ void tryLaunch(String url) async{
 }
 
 
-Future<bool> canGetLocation() async{
-  serviceEnabled = await location.serviceEnabled();
-  if (!serviceEnabled) {
-    serviceEnabled = await location.requestService();
-    if (!serviceEnabled) {
-      return false;
-    }
-  }
-
-  permissionGranted = await location.hasPermission();
-  if (permissionGranted == PermissionStatus.denied) {
-    permissionGranted = await location.requestPermission();
-    if (permissionGranted != PermissionStatus.granted) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-bool serviceEnabled;
-PermissionStatus permissionGranted;
-LocationData locationData;
-
-Future<void> updateLocation() async{
-  bool canGet = await canGetLocation();
-  if (canGet) {
-    locationData = await location.getLocation();
-  }
-}
-
 String capitalize(String line) {
   return "${line[0].toUpperCase()}${line.substring(1)}";
 }
+
 
 IconData getIcon(String category){
   IconData iconObj;
@@ -198,6 +166,7 @@ IconData getIcon(String category){
 
   return iconObj;
 }
+
 
 int calculateDistance(lat1, lon1, lat2, lon2){
   const double r = 6371e3;

@@ -42,15 +42,15 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
             [
               BottomNavigationBarItem(
                   icon: Icon(Icons.article_rounded),
-                  label: 'News'
+                  label: 'Новости'
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.home),
-                  label: 'Home'
+                  label: 'Главная'
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle),
-                  label: 'Profile'
+                  label: 'Профиль'
               ),
             ]
         ),

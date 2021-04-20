@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:mobile_app/services/locationService.dart';
 import 'package:mobile_app/tools.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 import '../config.dart';
 
 
@@ -54,6 +56,7 @@ class _ObjectPageState extends State<ObjectPage> {
     else {
       double screenWidth = MediaQuery.of(context).size.width;
       double screenHeight = MediaQuery.of(context).size.height;
+      var locationData = Provider.of<UserLocation>(context);
 
       int distance = calculateDistance(
           locationData.latitude,
@@ -221,6 +224,8 @@ class _ObjectPageState extends State<ObjectPage> {
                                       width: screenWidth - 40.0,
                                       child: Text(
                                         objectData['name_ru'],
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 27.0,

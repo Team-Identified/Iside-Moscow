@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/components/BottomAppBar.dart';
-import 'dart:async';
-import 'package:mobile_app/tools.dart';
+import 'package:mobile_app/components/bottomAppBar.dart';
+import 'package:mobile_app/services/locationService.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
-  const locationUpdateFrequency = const Duration(minutes: 5);
-  new Timer.periodic(locationUpdateFrequency, (Timer t) {
-    updateLocation();
-  });
   runApp(Main());
 }
 
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: CustomBottomAppBar(),
+    return StreamProvider<UserLocation>.value(
+      initialData: UserLocation(),
+      value: LocationService().locationStream,
+      child: new MaterialApp(
+        home: CustomBottomAppBar(),
+      ),
     );
   }
 }

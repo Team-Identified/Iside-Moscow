@@ -40,6 +40,8 @@ dependencies:
   flutter_secure_storage: ^3.3.1+1
   http: ^0.12.1
   material_design_icons_flutter: ^4.0.5955
+  provider: ^5.0.0
+  flutter_local_notifications: ^4.0.1+2
 
 dev_dependencies:
   flutter_test:
