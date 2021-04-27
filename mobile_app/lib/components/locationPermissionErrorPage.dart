@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/config.dart';
-import 'package:mobile_app/tools.dart';
-import 'package:app_settings/app_settings.dart';
+import 'package:mw_insider/config.dart';
+import 'package:mw_insider/services/permissionService.dart';
 
 
 class LocationPermissionErrorPage extends StatelessWidget {
@@ -32,7 +31,7 @@ class LocationPermissionErrorPage extends StatelessWidget {
                 Container(
                   width: screenWidth - 60.0,
                   child: Text(
-                    "Please make sure that you have geolocation enabled and that this application has access to it.",
+                    "Please make sure that you have geolocation enabled and that this application ALWAYS has access to it.",
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 17.0,
@@ -43,7 +42,7 @@ class LocationPermissionErrorPage extends StatelessWidget {
                 Container(
                   child: TextButton(
                     onPressed: () {
-                      AppSettings.openLocationSettings();
+                      getAlwaysPermission();
                       updateFunction();
                     },
                     child: Text(

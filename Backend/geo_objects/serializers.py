@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from geo_objects.models import GeoObject, SubmittedGeoObject, SearchRequest, LocationRequest
+from geo_objects.models import GeoObject, SubmittedGeoObject, SearchRequest, LocationRequest, UserObjectExploration
 
 
 class GeoObjectSerializer(serializers.ModelSerializer):
@@ -55,3 +55,17 @@ class LocationRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationRequest
         fields = ['latitude', 'longitude']
+
+
+class UserObjectExplorationSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    geo_object = serializers.ReadOnlyField(source='geo_object.name_ru')
+
+    class Meta:
+        model = UserObjectExploration
+        fields = [
+            'id',
+            'user',
+            'geo_object',
+            'created',
+        ]

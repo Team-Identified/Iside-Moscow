@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/pages/newsPage.dart';
-import 'package:mobile_app/pages/userPage.dart';
-import 'package:mobile_app/pages/homeObjectPage.dart';
+import 'package:mw_insider/pages/newsPage.dart';
+import 'package:mw_insider/pages/userPage.dart';
+import 'package:mw_insider/pages/homeObjectPage.dart';
 
 
 class CustomBottomAppBar extends StatefulWidget {
@@ -10,7 +10,6 @@ class CustomBottomAppBar extends StatefulWidget {
 }
 
 class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
-
   int _currIndex = 1;
   final List<Widget> _children = [
     NewsPage(),

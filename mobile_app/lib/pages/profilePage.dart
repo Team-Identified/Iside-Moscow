@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/components/Button.dart';
-import 'package:mobile_app/tools.dart';
+import 'package:mw_insider/components/Button.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mobile_app/config.dart';
+import 'package:mw_insider/config.dart';
+import 'package:mw_insider/services/backendCommunicationService.dart';
+import 'package:mw_insider/services/backgroundService.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -122,6 +123,10 @@ class _ProfileState extends State<ProfilePage> {
                         press: () {
                           widget.onLogOutPressed();
                         },
+                      ),
+                      Button(
+                          text: "Режим прогулки",
+                          press: () {switchBackgroundService();},
                       )
                     ],
                   ),

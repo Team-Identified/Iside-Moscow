@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:mobile_app/pages/loginPage.dart';
-import 'package:mobile_app/pages/profilePage.dart';
-import 'package:mobile_app/pages/signUpPage.dart';
-import '../tools.dart';
+import 'package:mw_insider/pages/loginPage.dart';
+import 'package:mw_insider/pages/profilePage.dart';
+import 'package:mw_insider/pages/signUpPage.dart';
+import 'package:mw_insider/services/authorizationService.dart';
 
 
 class UserPage extends StatefulWidget {

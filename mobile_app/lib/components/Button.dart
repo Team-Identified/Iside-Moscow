@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/config.dart';
+import 'package:mw_insider/config.dart';
 
 
 class Button extends StatelessWidget {

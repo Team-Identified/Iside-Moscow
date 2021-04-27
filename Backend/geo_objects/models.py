@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 
 CATEGORY_CHOICES = [
     ('MN', 'Monument'),
@@ -56,6 +58,18 @@ class SubmittedGeoObject(models.Model):
         ordering = ['category']
 
 
+class UserObjectExploration(models.Model):
+    user = models.ForeignKey('auth.User', related_name='explored_objects', null=True,
+                             default=None, on_delete=models.CASCADE)
+    geo_object = models.ForeignKey(GeoObject, on_delete=models.CASCADE)
+    created = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+        return super(UserObjectExploration, self).save(*args, **kwargs)
+
+
 class Point(models.Model):
     x = models.FloatField()
     y = models.FloatField()
@@ -69,7 +83,7 @@ class Rectangle(models.Model):
     y = models.FloatField()
     width = models.FloatField()
     height = models.FloatField()
-    
+
     def __str__(self):
         return f'"X": {self.x}, "Y": {self.y}, "Width": {self.width}, "Height": {self.height}'
 

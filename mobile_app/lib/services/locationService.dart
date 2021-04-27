@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:location/location.dart';
-import 'package:mobile_app/config.dart';
+import 'package:mw_insider/config.dart';
+import 'package:mw_insider/services/notificationService.dart';
+import 'package:mw_insider/services/permissionService.dart';
 
 
 class UserLocation{
@@ -15,53 +18,36 @@ class UserLocation{
 class LocationService{
   // Keep track of current location
   UserLocation _currentLocation;
-
-  var location = Location();
-  var serviceEnabled;
-  var permissionGranted;
   int currentTime = (new DateTime.now()).millisecondsSinceEpoch;
   int lastUpdateTime = 0;
   int minUpdateDeltaTime = LOCATION_UPDATE_MIN_DELTA;
 
-
-  Future<bool> canGetLocation() async{
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return false;
-      }
-    }
-
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
   //Continuously emit location updates
   StreamController<UserLocation> _locationController =
-    StreamController<UserLocation>.broadcast();
+  StreamController<UserLocation>.broadcast();
+
+  UserLocation loadingUserLocation = UserLocation(
+    latitude: null,
+    longitude: null,
+    loaded: false,
+  );
+
+  UserLocation emptyUserLocation = UserLocation(
+    latitude: null,
+    longitude: null,
+    loaded: true,
+  );
 
   LocationService(){
-    _locationController.add(UserLocation(
-      latitude: null,
-      longitude: null,
-      loaded: false,
-    ));
+    _locationController.add(loadingUserLocation);
 
-    canGetLocation().then((canGet) {
+    checkLocationPermission().then((canGet) {
       if (canGet){
         location.onLocationChanged.listen((locationData) {
           if (locationData != null){
             currentTime = (new DateTime.now()).millisecondsSinceEpoch;
             if (currentTime - lastUpdateTime > minUpdateDeltaTime){
-              print("LOCATION UPDATED");
+              checkNearbyObjectNotification(locationData);
               lastUpdateTime = currentTime;
               _locationController.add(UserLocation(
                 latitude: locationData.latitude,
@@ -73,11 +59,7 @@ class LocationService{
         });
       }
       else{
-        _locationController.add(UserLocation(
-          latitude: null,
-          longitude: null,
-          loaded: true,
-        ));
+        _locationController.add(emptyUserLocation);
       }
     });
   }

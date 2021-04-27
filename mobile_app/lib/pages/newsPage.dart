@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/components/unauthorizedPage.dart';
-import 'package:mobile_app/tools.dart';
+import 'package:mw_insider/components/unauthorizedPage.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_app/config.dart';
+import 'package:mw_insider/config.dart';
+import 'package:mw_insider/services/authorizationService.dart';
+import 'package:mw_insider/services/backendCommunicationService.dart';
+import 'package:mw_insider/services/urlLauncherService.dart';
 
 
 class NewsPage extends StatefulWidget {

@@ -1,3 +1,4 @@
+from config import NEARBY_OBJECTS_RADIUS
 from geo_objects.models import QuadTree, Point, GeoPoint
 from geo_objects.management.commands.build_quadtree import contains
 from geo_objects.serializers import GeoObjectSerializer
@@ -22,7 +23,7 @@ def get_coordinates_distance(pos1, pos2):
     return d
 
 
-def get_nearby_objects(request, point):
+def get_nearby_objects(request, point, filter_radius=NEARBY_OBJECTS_RADIUS):
     pos_x, pos_y = point
     position = Point(x=pos_x, y=pos_y)
     
@@ -49,7 +50,7 @@ def get_nearby_objects(request, point):
     serializer_context = {'request': request}
     for nearby_object in nearby_objects:
         dist = get_coordinates_distance(point, (nearby_object.latitude, nearby_object.longitude))
-        if dist <= 2000:
+        if dist <= filter_radius:
             serializer = GeoObjectSerializer(instance=nearby_object, context=serializer_context)
             serialized_object = serializer.data
             object_data = {

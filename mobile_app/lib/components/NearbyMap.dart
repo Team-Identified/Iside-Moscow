@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:mobile_app/services/locationService.dart';
-import 'package:mobile_app/tools.dart';
+import 'package:mw_insider/services/backendCommunicationService.dart';
+import 'package:mw_insider/services/locationService.dart';
 import 'package:latlong/latlong.dart';
+import 'package:mw_insider/services/uiService.dart';
 import 'package:provider/provider.dart';
 
 

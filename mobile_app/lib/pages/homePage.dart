@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
-import 'package:mobile_app/components/NearbyMap.dart';
-import 'package:mobile_app/components/locationPermissionErrorPage.dart';
-import 'package:mobile_app/services/locationService.dart';
-import 'package:mobile_app/components/nearbyObjectsList.dart';
+import 'package:mw_insider/components/NearbyMap.dart';
+import 'package:mw_insider/components/locationPermissionErrorPage.dart';
+import 'package:mw_insider/services/locationService.dart';
+import 'package:mw_insider/components/nearbyObjectsList.dart';
+import 'package:mw_insider/services/permissionService.dart';
 import 'package:provider/provider.dart';
 
 
@@ -21,21 +21,13 @@ class _HomePageState extends State<HomePage> {
   bool updateTrigger = false;
   dynamic locationData;
 
-
-  Future<bool> canGetLocation() async {
-    Location location = new Location();
-    var serviceEnabled = await location.serviceEnabled();
-    var permissionGranted = await location.hasPermission();
-    return (serviceEnabled && permissionGranted != PermissionStatus.denied);
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     locationData = Provider.of<UserLocation>(context);
 
     return FutureBuilder<bool>(
-      future: canGetLocation(),
+      future: checkLocationPermission(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData && snapshot.data){
           return Container(

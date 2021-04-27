@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/config.dart';
-import 'package:mobile_app/services/locationService.dart';
-import 'package:mobile_app/tools.dart';
+import 'package:mw_insider/config.dart';
+import 'package:mw_insider/services/backendCommunicationService.dart';
+import 'package:mw_insider/services/locationService.dart';
+import 'package:mw_insider/services/uiService.dart';
 import 'dart:math';
 import 'package:provider/provider.dart';
 

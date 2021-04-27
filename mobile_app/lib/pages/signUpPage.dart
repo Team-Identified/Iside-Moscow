@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_app/components/authErrorMessage.dart';
+import 'package:mw_insider/components/authErrorMessage.dart';
 import 'dart:convert' show json;
-import 'package:mobile_app/config.dart';
-import 'package:mobile_app/pages/loginPage.dart';
-import 'package:mobile_app/components/Button.dart';
-import 'package:mobile_app/components/AlreadyHaveAnAccount.dart';
+import 'package:mw_insider/config.dart';
+import 'package:mw_insider/pages/loginPage.dart';
+import 'package:mw_insider/components/Button.dart';
+import 'package:mw_insider/components/AlreadyHaveAnAccount.dart';
 
-import 'loginPage.dart';
 
 class SignUpPage extends StatefulWidget {
   final VoidCallback onLogInButtonPressed;
