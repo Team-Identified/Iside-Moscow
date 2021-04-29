@@ -1,8 +1,28 @@
+import math
+
 from django.core.management.base import BaseCommand
 from geo_objects.models import QuadTree, GeoObject
 import json
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from math import floor
+
+
+def get_coordinates_distance(pos1, pos2):
+    lat1, lon1 = pos1
+    lat2, lon2 = pos2
+
+    r = 6371e3  # metres
+    f1 = lat1 * math.pi / 180  # φ, λ in radians
+    f2 = lat2 * math.pi / 180
+    df = (lat2 - lat1) * math.pi / 180
+    dy = (lon2 - lon1) * math.pi / 180
+
+    a = math.sin(df / 2) * math.sin(df / 2) + math.cos(f1) * math.cos(f2) * math.sin(dy / 2) * math.sin(dy / 2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    d = r * c  # in metres
+    d = round(d)
+    return d
 
 
 def get_pixel(x, y, start_x, start_y, ctp_k):
@@ -99,12 +119,29 @@ def visualize(tree, geo_objects, size=1000, save=False, show=True):
 
     quad_tree_img = draw_points(base, geo_objects, start_x, start_y, ctp_k)
     quad_tree_img = draw_sectors(quad_tree_img, tree, start_x, start_y, ctp_k)
-    
+
+    kilometer_width = get_coordinates_distance((start_x, start_y), (start_x + width, start_y)) // 1000
+    kilometer_height = get_coordinates_distance((start_x, start_y), (start_x, start_y + height)) // 1000
+
+    font = ImageFont.truetype("arial.ttf", 14)
+    drawer.text((20, 5),
+                f"""
+Top left: 
+latitude: {round(start_x, 6)}°
+longitude: {round(start_y, 6)}°
+Bottom right:
+latitude: {round(start_x + width, 6)}°
+longitude: {round(start_y + height, 6)}°
+Width: {kilometer_width}km
+Height: {kilometer_height}km
+Area: {kilometer_width * kilometer_height}km²
+""", font=font)
+
     if show:
         quad_tree_img.show()
     if save:
         quad_tree_img.save('QuadTree.png')
-    
+
     return quad_tree_img
 
 
