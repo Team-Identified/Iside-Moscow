@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mw_insider/pages/newsPage.dart';
+import 'package:mw_insider/pages/searchPage.dart';
 import 'package:mw_insider/pages/userPage.dart';
 import 'package:mw_insider/pages/homeObjectPage.dart';
 
@@ -15,6 +16,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
     NewsPage(),
     HomeObjectPage(),
     UserPage(),
+    SearchPage(),
   ];
 
   void onTappedBar(int index) {
@@ -50,6 +52,10 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle),
                   label: 'Профиль'
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: "Поиск",
               ),
             ]
         ),
