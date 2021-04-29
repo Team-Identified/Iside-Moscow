@@ -51,6 +51,10 @@ INSTALLED_APPS = [
 
     # JWT authentication backend library
     'rest_framework_simplejwt',
+
+    # Model tags library
+    'taggit',
+    'taggit_serializer',
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,12 @@
 from rest_framework import serializers
 from geo_objects.models import GeoObject, SubmittedGeoObject, SearchRequest, LocationRequest, UserObjectExploration
+from taggit_serializer.serializers import (TagListSerializerField,
+                                           TaggitSerializer)
 
 
-class GeoObjectSerializer(serializers.ModelSerializer):
+class GeoObjectSerializer(TaggitSerializer, serializers.ModelSerializer):
     contributor = serializers.ReadOnlyField(source='contributor.username')
+    tags = TagListSerializerField()
 
     class Meta:
         model = GeoObject
@@ -20,6 +23,7 @@ class GeoObjectSerializer(serializers.ModelSerializer):
             'latitude',
             'longitude',
             'contributor',
+            'tags',
         ]
 
 

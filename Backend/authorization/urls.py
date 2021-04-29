@@ -1,7 +1,5 @@
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
-
-from .views import UserProfileListCreateView, UserProfileDetailView, api_root
+from .views import UserProfileListCreateView, UserProfileDetailView, api_root, SetTagsView
 
 urlpatterns = [
     path('', api_root),
@@ -9,4 +7,5 @@ urlpatterns = [
     path("all-profiles", UserProfileListCreateView.as_view(), name="all-profiles"),
     # retrieves profile details of the currently logged in user
     path("profile/<int:pk>", UserProfileDetailView.as_view(), name="userprofile-detail"),
+    path("profile/set_tags", SetTagsView.as_view(), name="set-tags"),
 ]

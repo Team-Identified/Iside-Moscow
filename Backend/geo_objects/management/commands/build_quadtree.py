@@ -119,7 +119,7 @@ class Command(BaseCommand):
         boundary_x, boundary_y, boundary_width, boundary_height = get_bounds(geo_objects)
         qt_boundary = Rectangle(x=boundary_x, y=boundary_y, width=boundary_width, height=boundary_height)
         qt_boundary.save()
-        quad_tree = QuadTree(boundary=qt_boundary, capacity=QUADTREE_CAPACITY)
+        quad_tree = QuadTree(boundary=qt_boundary, capacity=QUADTREE_CAPACITY, is_root=True)
         quad_tree.save()
         for index, geo_object in enumerate(geo_objects, start=1):
             progress = floor((index / len(geo_objects)) * 100)
@@ -127,6 +127,7 @@ class Command(BaseCommand):
 
             insert(geo_object, quad_tree)
 
-        data = quad_tree.__str__()
+        new_quad_tree = QuadTree.objects.get(is_root=True)
+        data = new_quad_tree.get_json()
         tree = json.loads(data)
         visualize(tree, geo_objects, save=True, size=1000)

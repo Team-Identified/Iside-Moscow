@@ -49,6 +49,7 @@ class LocationService{
             if (currentTime - lastUpdateTime > minUpdateDeltaTime){
               checkNearbyObjectNotification(locationData);
               lastUpdateTime = currentTime;
+              print(locationData);
               _locationController.add(UserLocation(
                 latitude: locationData.latitude,
                 longitude: locationData.longitude,

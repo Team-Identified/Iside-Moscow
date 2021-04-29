@@ -2,6 +2,8 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.reverse import reverse
+
+from authorization.models import UserProfile
 from config import GEO_OBJECTS_SEARCH_SIMILARITY, GEO_OBJECTS_SEARCH_MAX_RESULTS, NEARBY_OBJECTS_NOTIFY_RADIUS
 from geo_objects.models import GeoObject, SubmittedGeoObject, UserObjectExploration
 from geo_objects.serializers import GeoObjectSerializer, SubmittedGeoObjectSerializer, SearchRequestSerializer, \
@@ -24,7 +26,8 @@ class GeoObjectViewSet(viewsets.ModelViewSet):
 
 
 class GeoObjectRetrieveViewSet(viewsets.ViewSet):
-    def retrieve(self, request, pk=None):
+    @staticmethod
+    def retrieve(request, pk=None):
         queryset = GeoObject.objects.all()
         geo_object = get_object_or_404(queryset, pk=pk)
         serializer = GeoObjectSerializer(geo_object, context={'request': request})
@@ -35,7 +38,8 @@ class SubmittedGeoObjectViewSet(viewsets.ViewSet):
     queryset = SubmittedGeoObject.objects.all()
     serializer_class = SubmittedGeoObjectSerializer
 
-    def retrieve(self, request, pk=None):
+    @staticmethod
+    def retrieve(request, pk=None):
         queryset = SubmittedGeoObject.objects.all()
         geo_object = get_object_or_404(queryset, pk=pk)
         if geo_object.contributor == request.user or request.user.is_staff:
@@ -44,7 +48,8 @@ class SubmittedGeoObjectViewSet(viewsets.ViewSet):
         else:
             return Response({"detail": "forbidden"}, status=status.HTTP_403_FORBIDDEN)
 
-    def list(self, request):
+    @staticmethod
+    def list(request):
         if request.user.is_authenticated:
             if request.user.is_staff:
                 queryset = SubmittedGeoObject.objects.all()
@@ -56,7 +61,8 @@ class SubmittedGeoObjectViewSet(viewsets.ViewSet):
             return Response({"detail": "Authentication credentials were not provided."},
                             status=status.HTTP_401_UNAUTHORIZED)
 
-    def create(self, request):
+    @staticmethod
+    def create(request):
         serializer = SubmittedGeoObjectSerializer(data=request.data)
         if serializer.is_valid():
             contributor = None
@@ -67,7 +73,8 @@ class SubmittedGeoObjectViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request, pk=None):
+    @staticmethod
+    def destroy(request, pk=None):
         queryset = SubmittedGeoObject.objects.all()
         geo_object = get_object_or_404(queryset, pk=pk)
         if geo_object.contributor == request.user or request.user.is_staff:
@@ -111,7 +118,7 @@ class NearbyObjectNotificationView(APIView):
     Check if user need to be notified about any nearby object
     """
 
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = LocationRequestSerializer
 
     @staticmethod
@@ -127,27 +134,39 @@ class NearbyObjectNotificationView(APIView):
         if len(objects) > 0:
             nearest_object = objects[0]["object"]
             distance = objects[0]["distance"]
-            if request.user.is_authenticated:
-                user = request.user
-                geo_object = GeoObject.objects.get(id=nearest_object["id"])
-                already_explored = UserObjectExploration.objects.filter(user=user, geo_object=geo_object).count() > 0
-                if not already_explored:
-                    object_exploration = UserObjectExploration(
-                        user=user,
-                        geo_object=geo_object,
-                    )
-                    object_exploration.save()
+            user = request.user
+            user_profile = UserProfile.objects.get(user=user)
+            geo_object = GeoObject.objects.get(id=nearest_object["id"])
+            already_explored = UserObjectExploration.objects.filter(user=user, geo_object=geo_object).count() > 0
 
-                    data = {
-                        'input': {
-                            'latitude': latitude,
-                            'longitude': longitude
-                        },
-                        'need_to_notify': True,
-                        'object': nearest_object,
-                        'distance': distance,
-                    }
-                    return Response(data=data, status=status.HTTP_200_OK)
+            user_tags = list(user_profile.notification_tags.names())
+            object_tags = list(geo_object.tags.names())
+            tag_similar = False
+            for user_tag in user_tags:
+                if tag_similar:
+                    break
+                for object_tag in object_tags:
+                    if user_tag == object_tag:
+                        tag_similar = True
+                        break
+
+            if tag_similar and not already_explored:
+                object_exploration = UserObjectExploration(
+                    user=user,
+                    geo_object=geo_object,
+                )
+                object_exploration.save()
+
+                data = {
+                    'input': {
+                        'latitude': latitude,
+                        'longitude': longitude
+                    },
+                    'need_to_notify': True,
+                    'object': nearest_object,
+                    'distance': distance,
+                }
+                return Response(data=data, status=status.HTTP_200_OK)
         data = {
             'input': {
                 'latitude': latitude,

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 
 CATEGORY_CHOICES = [
@@ -30,6 +31,7 @@ class GeoObject(models.Model):
     longitude = models.FloatField(default=0)
     contributor = models.ForeignKey('auth.User', related_name='contributed_objects', null=True,
                                     default=None, on_delete=models.SET_NULL)
+    tags = TaggableManager(help_text="A comma-separated list of tags.", blank=False)
 
     def __str__(self):
         return f'{self.category}: {self.name_ru}/{self.name_en}'
@@ -98,6 +100,7 @@ class QuadTree(models.Model):
     boundary = models.ForeignKey(Rectangle, on_delete=models.CASCADE)
     capacity = models.IntegerField(default=20)
     divided = models.BooleanField(default=False)
+    is_root = models.BooleanField(default=False)
     top_left = models.ForeignKey('self', on_delete=models.SET_DEFAULT,
                                  null=True, default=None, related_name='TopLeft')
     top_right = models.ForeignKey('self', on_delete=models.SET_DEFAULT,

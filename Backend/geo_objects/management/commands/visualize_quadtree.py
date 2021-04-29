@@ -110,7 +110,7 @@ def visualize(tree, geo_objects, size=1000, save=False, show=True):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        quad_tree = QuadTree.objects.all().first()
+        quad_tree = QuadTree.objects.get(is_root=True)
         geo_objects = GeoObject.objects.all()
         data = quad_tree.get_json()
         tree = json.loads(data)
