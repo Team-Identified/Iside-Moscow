@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
 
+import geo_objects.management.commands.build_quadtree as bq
 
 CATEGORY_CHOICES = [
     ('MN', 'Monument'),
@@ -33,11 +34,16 @@ class GeoObject(models.Model):
                                     default=None, on_delete=models.SET_NULL)
     tags = TaggableManager(help_text="A comma-separated list of tags.", blank=False)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        quad_tree = QuadTree.objects.get(is_root=True)
+        bq.insert(self, quad_tree)
+
     def __str__(self):
         return f'{self.category}: {self.name_ru}/{self.name_en}'
 
     class Meta:
-        ordering = ['category']
+        ordering = ['category', 'name_ru']
 
 
 class SubmittedGeoObject(models.Model):

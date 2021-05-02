@@ -1,9 +1,8 @@
 import math
-
 from django.core.management.base import BaseCommand
-from geo_objects.models import QuadTree, GeoObject
+import geo_objects.models as models
 import json
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 from math import floor
 
 
@@ -123,7 +122,7 @@ def visualize(tree, geo_objects, size=1000, save=False, show=True):
     kilometer_width = get_coordinates_distance((start_x, start_y), (start_x + width, start_y)) // 1000
     kilometer_height = get_coordinates_distance((start_x, start_y), (start_x, start_y + height)) // 1000
 
-    font = ImageFont.truetype("arial.ttf", 14)
+    # font = ImageFont.truetype("arial.ttf", 14)
     drawer.text((20, 5),
                 f"""
 Top left: 
@@ -135,7 +134,7 @@ longitude: {round(start_y + height, 6)}°
 Width: {kilometer_width}km
 Height: {kilometer_height}km
 Area: {kilometer_width * kilometer_height}km²
-""", font=font)
+""")
 
     if show:
         quad_tree_img.show()
@@ -147,8 +146,8 @@ Area: {kilometer_width * kilometer_height}km²
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        quad_tree = QuadTree.objects.get(is_root=True)
-        geo_objects = GeoObject.objects.all()
+        quad_tree = models.QuadTree.objects.get(is_root=True)
+        geo_objects = models.GeoObject.objects.all()
         data = quad_tree.get_json()
         tree = json.loads(data)
         print(f'Depth: {count_depth(tree)}, Sectors: {count_sectors(tree)}')

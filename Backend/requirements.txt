@@ -8,12 +8,13 @@ cryptography==3.4.7
 defusedxml==0.7.1
 Django==3.2
 django-taggit==1.4.0
+django-taggit-serializer==0.1.7
 django-templated-mail==1.1.1
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.6.0
 djoser==2.1.0
 fuzzywuzzy==0.18.0
-idna==3.1
+idna==2.9
 itypes==1.2.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1

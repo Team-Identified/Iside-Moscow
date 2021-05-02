@@ -13,6 +13,7 @@
     <application
         android:name=".MyApplication"
         android:label="MW Insider"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/small_logo"
         >
         <service android:name=".MyService" android:exported="true" android:enabled="true"/>

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mw_insider/components/newsArticleImage.dart';
 import 'package:mw_insider/components/unauthorizedPage.dart';
 import 'package:intl/intl.dart';
-import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/authorizationService.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
 import 'package:mw_insider/services/urlLauncherService.dart';
@@ -152,51 +152,7 @@ class Article extends StatelessWidget {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                imgUrl,
-                errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
-                  return Image.network(
-                    animeGirlsUrl,
-                    loadingBuilder: (context, child, progress){
-                      return progress == null
-                          ? child
-                          : Container(
-                        color: Colors.grey[300],
-                        padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                          ),
-                        ),
-                      );
-                    },
-                    errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
-                      return Container(
-                        color: Colors.grey[300],
-                        padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-                loadingBuilder: (context, child, progress){
-                  return progress == null
-                  ? child
-                  : Container(
-                    color: Colors.grey[300],
-                    padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                      ),
-                    ),
-                  );
-                },
-              ),
+              child: ArticleImage(imgUrl: imgUrl),
             ),
           ),
           Text(

@@ -5,5 +5,10 @@ void tryLaunch(String url) async{
   // if (ability){
   //   await launch(url);
   // }
-  await launch(url);
+  try{
+    await launch(url);
+  }
+  catch(e){
+    print("ERROR: $e");
+  }
 }
