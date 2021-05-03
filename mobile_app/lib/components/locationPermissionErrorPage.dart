@@ -5,10 +5,6 @@ import 'package:mw_insider/services/permissionService.dart';
 
 
 class LocationPermissionErrorPage extends StatelessWidget {
-  final VoidCallback updateFunction;
-
-  const LocationPermissionErrorPage({@required this.updateFunction});
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -21,13 +17,14 @@ class LocationPermissionErrorPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "ERROR",
+                  "Location permissions",
                   style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.red,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurpleAccent,
                   ),
                 ),
-                SizedBox(height: 10.0),
+                SizedBox(height: 30.0),
                 Container(
                   width: screenWidth - 60.0,
                   child: Text(
@@ -43,7 +40,6 @@ class LocationPermissionErrorPage extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {
                       getAlwaysPermission();
-                      updateFunction();
                     },
                     child: Text(
                       "Give permission",

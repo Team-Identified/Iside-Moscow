@@ -8,6 +8,10 @@ import 'package:mw_insider/services/authorizationService.dart';
 
 
 class UserPage extends StatefulWidget {
+  final VoidCallback afterLogIn;
+
+  UserPage({@required this.afterLogIn});
+
   @override
   _UserPageState createState() => _UserPageState();
 }
@@ -31,6 +35,17 @@ class _UserPageState extends State<UserPage> {
   }
 
   Future<String> setPage() async{
+    VoidCallback onSubmit = () {
+      setState(() {
+        currentPageName = 'profile';
+      });
+    };
+    if (widget.afterLogIn != null){
+      onSubmit = () {
+        widget.afterLogIn();
+      };
+    }
+
     currentPageName = await setPageName();
     if (currentPageName == 'login') {
       currentPage = LoginPage(
@@ -40,9 +55,7 @@ class _UserPageState extends State<UserPage> {
           });
         },
         onSubmitButtonPressed: () {
-          setState(() {
-            currentPageName = 'profile';
-          });
+          onSubmit();
         },
       );
     }

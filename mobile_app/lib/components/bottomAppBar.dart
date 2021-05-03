@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:mw_insider/pages/newsPage.dart';
-import 'package:mw_insider/pages/userPage.dart';
+import 'package:mw_insider/pages/profilePage.dart';
 import 'package:mw_insider/pages/homeObjectPage.dart';
 
 
 class CustomBottomAppBar extends StatefulWidget {
+  final VoidCallback updateFunction;
+
+  CustomBottomAppBar({@required this.updateFunction});
+
   @override
   _CustomBottomAppBarState createState() => _CustomBottomAppBarState();
 }
 
 class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   int _currIndex = 1;
-  final List<Widget> _children = [
-    NewsPage(),
-    HomeObjectPage(),
-    UserPage(),
-  ];
+  Widget newsPage;
+  Widget homePage;
+  Widget profilePage;
+  List<Widget> _children;
 
   void onTappedBar(int index) {
     setState(() {
       _currIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _children = [
+      NewsPage(),
+      HomeObjectPage(),
+      ProfilePage(onLogOutPressed: () {widget.updateFunction();}),
+    ];
   }
 
   @override

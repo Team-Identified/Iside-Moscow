@@ -51,14 +51,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
         else if (snapshot.hasData && !snapshot.data && locationData.loaded == true){
-          return LocationPermissionErrorPage(
-            updateFunction: () {
-              setState(() {
-                updateTrigger = !updateTrigger;
-                LocationService();
-              });
-            },
-          );
+          return LocationPermissionErrorPage();
         }
         else{
           return Center(

@@ -22,6 +22,9 @@ class _NearbyObjectsListState extends State<NearbyObjectsList> {
   var locationData;
 
   Future<void> loadData() async{
+    if (!mounted) {
+      return; // Just do nothing if the widget is disposed.
+    }
     Map requestData = {
       "latitude": locationData.latitude,
       "longitude": locationData.longitude,

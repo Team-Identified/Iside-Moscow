@@ -22,6 +22,10 @@ class _ProfileState extends State<ProfilePage> {
 
 
   Future<String> getProfile() async {
+    if (!mounted) {
+      return "WIDGET NOT MOUNTED"; // Just do nothing if the widget is disposed.
+    }
+
     Map resGetUrl = await serverRequest("get", "auth/users/me", null);
     id = resGetUrl["id"].toString();
     Map res = await serverRequest("get", "accounts/profile/" + id, null);
@@ -120,7 +124,9 @@ class _ProfileState extends State<ProfilePage> {
                       ),
                       Button(
                         text: "LOG OUT",
-                        press: () {
+                        press: () async {
+                          await storage.delete(key: "access_jwt");
+                          await storage.delete(key: "refresh_jwt");
                           widget.onLogOutPressed();
                         },
                       ),
