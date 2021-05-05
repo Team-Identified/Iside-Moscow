@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:mobile_app/tools.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import "package:mobile_app/components/objectMenu.dart";
 import '../config.dart';
 
 
@@ -187,11 +188,16 @@ class _ObjectPageState extends State<ObjectPage> {
                       ),
                     ),
                     Positioned(
+                      right: 10,
+                      top: 0,
+                      child: ObjMenu(),
+                    ),
+                    Positioned(
                       top: 3.0,
                       left: 10.0,
                       child: Container(
                         child: ElevatedButton(
-                          child: Icon(MdiIcons.arrowLeft, color: Colors.white, size: 27.0,),
+                          child: Icon(Icons.arrow_left, color: Colors.white, size: 27.0,),
                           onPressed: widget.onGoBack,
                           style: ElevatedButton.styleFrom(
                             primary: Colors.black.withOpacity(0.3),
