@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 Color themeColor = Colors.deepPurpleAccent.shade700;
 
  // const String SERVER_URL = "10.0.2.2:8000";
-//const String SERVER_URL = "192.168.1.215:8000";
-const String SERVER_URL = "172.20.10.2:8000";
+const String SERVER_URL = "192.168.1.215:8000";
 
 final storage = FlutterSecureStorage();
 
