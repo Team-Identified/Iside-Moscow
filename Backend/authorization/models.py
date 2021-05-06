@@ -14,7 +14,7 @@ LANGUAGE_CHOICES = [
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    language = models.CharField(choices=LANGUAGE_CHOICES, default='English', max_length=100)
+    language = models.CharField(choices=LANGUAGE_CHOICES, default='Russian', max_length=100)
     points = models.IntegerField(default=0)
     rank = models.CharField(default=RANKS[0].rank_name, max_length=100)
     notification_tags = TaggableManager(help_text="A comma-separated list of tags.", blank=True)

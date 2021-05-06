@@ -6,8 +6,10 @@ import 'package:mw_insider/services/authorizationService.dart';
 import 'package:mw_insider/services/locationService.dart';
 import 'package:mw_insider/services/permissionService.dart';
 import 'package:provider/provider.dart';
-
 import 'components/locationPermissionErrorPage.dart';
+
+
+LocationService locationService = LocationService();
 
 
 void main() {
@@ -92,8 +94,8 @@ class _MainState extends State<Main> with WidgetsBindingObserver {
     }
     return StreamProvider<UserLocation>.value(
       initialData: UserLocation(),
-      value: LocationService().locationStream,
-      child: new MaterialApp(
+      value: locationService.locationStream,
+      child: MaterialApp(
         home: CustomBottomAppBar(updateFunction: () {
           setState(() {
             updateTrigger = !updateTrigger;

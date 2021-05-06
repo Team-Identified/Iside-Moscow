@@ -2,9 +2,9 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.reverse import reverse
-
 from authorization.models import UserProfile
-from config import GEO_OBJECTS_SEARCH_SIMILARITY, GEO_OBJECTS_SEARCH_MAX_RESULTS, NEARBY_OBJECTS_NOTIFY_RADIUS
+from config import GEO_OBJECTS_SEARCH_SIMILARITY, GEO_OBJECTS_SEARCH_MAX_RESULTS, NEARBY_OBJECTS_NOTIFY_RADIUS, \
+    NEARBY_OBJECTS_EXPLORATION_RADIUS
 from geo_objects.models import GeoObject, SubmittedGeoObject, UserObjectExploration
 from geo_objects.serializers import GeoObjectSerializer, SubmittedGeoObjectSerializer, SearchRequestSerializer, \
     LocationRequestSerializer, UserObjectExplorationSerializer
@@ -89,7 +89,7 @@ class GetNearbyObjectsForUserView(APIView):
     Get nearby objects for user by coordinates
     """
 
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = LocationRequestSerializer
 
     @staticmethod
@@ -102,6 +102,18 @@ class GetNearbyObjectsForUserView(APIView):
             return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         objects = get_nearby_objects(request, (latitude, longitude))
+        for geo_object in objects:
+            if geo_object['distance'] < NEARBY_OBJECTS_EXPLORATION_RADIUS:
+                geo_object_db = GeoObject.objects.get(id=geo_object['object']['id'])
+                already_explored = UserObjectExploration.objects.filter(user=request.user,
+                                                                        geo_object=geo_object_db).count() > 0
+                if not already_explored:
+                    object_exploration = UserObjectExploration(
+                        user=request.user,
+                        geo_object=geo_object_db,
+                    )
+                    object_exploration.save()
+
         data = {
             'input': {
                 'latitude': latitude,
@@ -139,6 +151,13 @@ class NearbyObjectNotificationView(APIView):
             geo_object = GeoObject.objects.get(id=nearest_object["id"])
             already_explored = UserObjectExploration.objects.filter(user=user, geo_object=geo_object).count() > 0
 
+            if not already_explored:
+                object_exploration = UserObjectExploration(
+                    user=user,
+                    geo_object=geo_object,
+                )
+                object_exploration.save()
+
             user_tags = list(user_profile.notification_tags.names())
             object_tags = list(geo_object.tags.names())
             tag_similar = False
@@ -151,12 +170,6 @@ class NearbyObjectNotificationView(APIView):
                         break
 
             if tag_similar and not already_explored:
-                object_exploration = UserObjectExploration(
-                    user=user,
-                    geo_object=geo_object,
-                )
-                object_exploration.save()
-
                 data = {
                     'input': {
                         'latitude': latitude,
@@ -166,6 +179,7 @@ class NearbyObjectNotificationView(APIView):
                     'object': nearest_object,
                     'distance': distance,
                 }
+
                 return Response(data=data, status=status.HTTP_200_OK)
         data = {
             'input': {
@@ -184,10 +198,49 @@ class MyExplorationsView(APIView):
 
     @staticmethod
     def get(request):
-        objects = UserObjectExploration.objects.filter(user=request.user)
+        objects = UserObjectExploration.objects.filter(user=request.user).order_by('created')
+        objects = objects.reverse()
         serializer = UserObjectExplorationSerializer(objects, many=True)
         data = serializer.data
         return Response(data=data, status=status.HTTP_200_OK)
+
+
+class GetLastExploredObject(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @staticmethod
+    def get(request):
+        user = request.user
+        last_explored_record = UserObjectExploration.objects.filter(user=user).order_by('created').last()
+        if last_explored_record:
+            last_object = last_explored_record.geo_object
+            serializer = GeoObjectSerializer(last_object, context={'request': request})
+            return Response(data={
+                "exists": True,
+                "last_object": serializer.data,
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response(data={
+                "exists": False,
+                "last_object": None,
+            }, status=status.HTTP_200_OK)
+
+
+class MyStatsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @staticmethod
+    def get(request):
+        stats = {}
+        objects = UserObjectExploration.objects.filter(user=request.user)
+        stats["total"] = len(objects)
+        for exploration in objects:
+            category = exploration.geo_object.category
+            if category not in stats:
+                stats[category] = 0
+            stats[category] += 1
+
+        return Response(data=stats, status=status.HTTP_200_OK)
 
 
 class SearchObjectsView(APIView):
@@ -243,6 +296,8 @@ class APIRootView(APIView):
             'get nearby objects': reverse('get_nearby', request=request),
             'check nearby object notification': reverse('check_nearby_notification', request=request),
             'my explorations': reverse('my_explorations', request=request),
+            'last_exploration': reverse('last_exploration', request=request),
+            'my_stats': reverse('my_stats', request=request),
             'search objects by name': reverse('geoobjects-search', request=request),
             'geo object list': request.build_absolute_uri('geo_object-list'),
             'submitted geo object list': request.build_absolute_uri('submitted_geo_objects'),

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mw_insider/components/loadingCircle.dart';
 import 'package:mw_insider/components/newsArticleImage.dart';
 import 'package:mw_insider/components/unauthorizedPage.dart';
 import 'package:intl/intl.dart';
+import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/authorizationService.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
 import 'package:mw_insider/services/urlLauncherService.dart';
@@ -20,16 +22,6 @@ class _NewsPageState extends State<NewsPage> {
   bool loggedIn = true;
 
   Future<void> getMoreNews() async {
-    bool realLog = await isLoggedIn();
-    if (loggedIn != realLog){
-      setState(() {
-        loggedIn = realLog;
-      });
-    }
-
-    if (!loggedIn)
-        return;
-
     if (reachedEnd)
       return;
 
@@ -42,14 +34,16 @@ class _NewsPageState extends State<NewsPage> {
       articles.add(jsonArticles[i]);
     }
 
-    setState(() {
-      newsArticles.addAll(articles);
-      if (articlesOnPage == 0){
-        setState(() {
-          reachedEnd = true;
-        });
-      }
-    });
+    if (mounted) {
+      setState(() {
+        newsArticles.addAll(articles);
+        if (articlesOnPage == 0) {
+          setState(() {
+            reachedEnd = true;
+          });
+        }
+      });
+    }
     return;
   }
 
@@ -87,10 +81,7 @@ class _NewsPageState extends State<NewsPage> {
                   child: Column(
                     children: [
                       SizedBox(height: 10.0),
-                      CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.deepPurple),
-                      ),
+                      LoadingCircle(),
                       SizedBox(height: 15.0),
                     ],
                   ),
@@ -135,7 +126,7 @@ class Article extends StatelessWidget {
             textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 20.0,
-              color: Colors.deepPurple,
+              color: themeColorShade,
               fontWeight: FontWeight.bold,
             ),
           ),

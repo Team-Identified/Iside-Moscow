@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' show json;
 import 'package:mw_insider/config.dart';
-import 'package:mw_insider/components/Button.dart';
-import 'package:mw_insider/components/AlreadyHaveAnAccount.dart';
+import 'package:mw_insider/components/middleButton.dart';
+import 'package:mw_insider/components/alreadyHaveAnAccount.dart';
 import 'package:mw_insider/components/authErrorMessage.dart';
 
 void displayDialog(context, title, text) => showDialog(
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
               children: errorMessages,
             ),
           ),
-          Button(
+          MiddleButton(
             text: "LOGIN",
             press: () async {
               String username = _usernameController.text;

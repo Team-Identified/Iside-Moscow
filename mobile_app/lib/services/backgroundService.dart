@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 bool backgroundServiceRunning = false;
 
 
-void startBackgroundService() async {
+Future<void> startBackgroundService() async {
   if (Platform.isAndroid){
     var methodChannel = MethodChannel("com.identified.mw_insider");
     String data = await methodChannel.invokeMethod("startService");
@@ -16,7 +16,7 @@ void startBackgroundService() async {
 }
 
 
-void stopBackgroundService() async {
+Future<void> stopBackgroundService() async {
   if (Platform.isAndroid){
     var methodChannel = MethodChannel("com.identified.mw_insider");
     String data = await methodChannel.invokeMethod("stopService");
@@ -26,9 +26,10 @@ void stopBackgroundService() async {
 }
 
 
-void switchBackgroundService(){
+Future<bool> switchBackgroundService() async {
   if (backgroundServiceRunning)
-    stopBackgroundService();
+    await stopBackgroundService();
   else
-    startBackgroundService();
+    await startBackgroundService();
+  return backgroundServiceRunning;
 }

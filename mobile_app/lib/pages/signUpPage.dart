@@ -4,8 +4,8 @@ import 'package:mw_insider/components/authErrorMessage.dart';
 import 'dart:convert' show json;
 import 'package:mw_insider/config.dart';
 import 'package:mw_insider/pages/loginPage.dart';
-import 'package:mw_insider/components/Button.dart';
-import 'package:mw_insider/components/AlreadyHaveAnAccount.dart';
+import 'package:mw_insider/components/middleButton.dart';
+import 'package:mw_insider/components/alreadyHaveAnAccount.dart';
 
 
 class SignUpPage extends StatefulWidget {
@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
               children: errorMessages,
             ),
           ),
-          Button(
+          MiddleButton(
             text: "SIGN UP",
             press: () async {
               String email = _emailController.text;

@@ -37,3 +37,38 @@ IconData getIcon(String category){
 
   return iconObj;
 }
+
+
+String getRussianCategory(String category){
+  if (category == "monument") return "памятник";
+  else if (category == "theatre") return "театр";
+  else if (category == "museum") return "музей";
+  else if (category == "government building") return "здание правительства";
+  else if (category == "mall") return "торговый центр";
+  else if (category == "Red square object") return "объект Красной Площади";
+  else if (category == "religious building") return "религиозная постройка";
+  else if (category == "restaurant") return "ресторан";
+  else if (category == "skyscraper") return "небоскрёб";
+  else if (category == "stadium") return "стадион";
+  else if (category == "unknown") return "неизвестно";
+  else if (category == "other") return "другое";
+  else return "неизвестная категория";
+}
+
+
+// То же самое, но в множественном числе
+String getRussianCategoryMNCH(String category){
+  if (category == "monument") return "памятники";
+  else if (category == "theatre") return "театры";
+  else if (category == "museum") return "музеи";
+  else if (category == "government building") return "здания правительства";
+  else if (category == "mall") return "торговые центры";
+  else if (category == "Red square object") return "объекты Красной Площади";
+  else if (category == "religious building") return "религиозные постройки";
+  else if (category == "restaurant") return "рестораны";
+  else if (category == "skyscraper") return "небоскрёбы";
+  else if (category == "stadium") return "стадионы";
+  else if (category == "unknown") return "неизвестные";
+  else if (category == "other") return "другие";
+  else return "неизвестной категории";
+}

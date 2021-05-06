@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mw_insider/config.dart';
+import 'package:mw_insider/pages/homeSearchSubmitPage.dart';
 import 'package:mw_insider/pages/newsPage.dart';
 import 'package:mw_insider/pages/profilePage.dart';
-import 'package:mw_insider/pages/homeObjectPage.dart';
+import 'package:mw_insider/pages/strollObjectPage.dart';
+import 'package:mw_insider/pages/homePage.dart';
 
 
 class CustomBottomAppBar extends StatefulWidget {
@@ -14,10 +17,7 @@ class CustomBottomAppBar extends StatefulWidget {
 }
 
 class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
-  int _currIndex = 1;
-  Widget newsPage;
-  Widget homePage;
-  Widget profilePage;
+  int _currIndex = 0;
   List<Widget> _children;
 
   void onTappedBar(int index) {
@@ -30,8 +30,9 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   void initState() {
     super.initState();
     _children = [
+      HomeSearchSubmitPage(),
+      StrollObjectPage(),
       NewsPage(),
-      HomeObjectPage(),
       ProfilePage(onLogOutPressed: () {widget.updateFunction();}),
     ];
   }
@@ -41,11 +42,12 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(child: _children[_currIndex]),
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: themeColor,
         bottomNavigationBar: BottomNavigationBar(
             unselectedItemColor: Colors.blueGrey[500],
-            selectedItemColor: Colors.deepPurpleAccent,
+            selectedItemColor: themeColor,
             onTap: onTappedBar,
             iconSize: 27.0,
             currentIndex: _currIndex,
@@ -53,12 +55,16 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
             items:
             [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.article_rounded),
-                  label: 'Новости'
-              ),
-              BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   label: 'Главная'
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.directions_walk),
+                  label: 'Прогулка'
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.article_rounded),
+                  label: 'Новости'
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle),

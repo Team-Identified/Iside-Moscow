@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:mw_insider/components/loadingCircle.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
 import 'package:mw_insider/services/geoService.dart';
 import 'package:mw_insider/services/locationService.dart';
@@ -45,9 +46,7 @@ class _ObjectPageState extends State<ObjectPage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                  ),
+                  LoadingCircle(),
                   SizedBox(height: 20.0),
                   Text("Loading", style: TextStyle(fontSize: 20.0),),
                 ]
@@ -68,7 +67,7 @@ class _ObjectPageState extends State<ObjectPage> {
           objectData['longitude'],
       );
 
-      final String internetSearchQuery = "https://www.google.com/search?q=Москва ${objectData['category']} ${objectData['name_ru']}";
+      final String internetSearchQuery = "https://www.google.com/search?q=Москва ${getRussianCategory(objectData['category'])} ${objectData['name_ru']}";
 
       List<Widget> dataButtons = [];
       if (objectData['wiki_en'] != null){
@@ -86,7 +85,7 @@ class _ObjectPageState extends State<ObjectPage> {
               color: Colors.white,
               iconSize: 65.0,
               padding: EdgeInsets.all(0.0),
-              splashColor: Colors.deepPurpleAccent,
+              splashColor: themeColor,
             ),
           ),
         );
@@ -106,7 +105,7 @@ class _ObjectPageState extends State<ObjectPage> {
               color: Colors.white,
               iconSize: 65.0,
               padding: EdgeInsets.all(0.0),
-              splashColor: Colors.deepPurpleAccent,
+              splashColor: themeColor,
             ),
           ),
         );
@@ -125,7 +124,7 @@ class _ObjectPageState extends State<ObjectPage> {
             color: Colors.white,
             iconSize: 65.0,
             padding: EdgeInsets.all(0.0),
-            splashColor: Colors.deepPurpleAccent,
+            splashColor: themeColor,
           ),
         ),
       );
@@ -157,9 +156,7 @@ class _ObjectPageState extends State<ObjectPage> {
                                   color: Colors.grey[300],
                                   padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
                                   child: Center(
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                                    ),
+                                    child: LoadingCircle(),
                                   ),
                                 );
                               },
@@ -168,9 +165,7 @@ class _ObjectPageState extends State<ObjectPage> {
                                   color: Colors.grey[300],
                                   padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
                                   child: Center(
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                                    ),
+                                    child: LoadingCircle(),
                                   ),
                                 );
                               },
@@ -183,9 +178,7 @@ class _ObjectPageState extends State<ObjectPage> {
                               color: Colors.grey[300],
                               padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
                               child: Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                                ),
+                                child: LoadingCircle(),
                               ),
                             );
                           },
@@ -255,7 +248,7 @@ class _ObjectPageState extends State<ObjectPage> {
                                         Container(
                                           width: screenWidth * 0.6,
                                           child: Text(
-                                            capitalize(objectData['category']),
+                                            capitalize(getRussianCategory(objectData['category'])),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w300,
@@ -356,7 +349,7 @@ class _ObjectPageState extends State<ObjectPage> {
                                 point: LatLng(objectData['latitude'], objectData['longitude']),
                                 builder: (ctx) =>
                                     Container(
-                                      child: Icon(getIcon(objectData['category']), color: Colors.deepPurpleAccent, size: 40.0,),
+                                      child: Icon(getIcon(objectData['category']), color: themeColor, size: 40.0,),
                                     ),
                               ),
                             ],

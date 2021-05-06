@@ -14,5 +14,7 @@ urlpatterns = [
     path('get_nearby_objects', views.GetNearbyObjectsForUserView.as_view(), name='get_nearby'),
     path('nearby_object_notification', views.NearbyObjectNotificationView.as_view(), name='check_nearby_notification'),
     path('my_explorations', views.MyExplorationsView.as_view(), name='my_explorations'),
+    path('last_exploration', views.GetLastExploredObject.as_view(), name='last_exploration'),
+    path('my_stats', views.MyStatsView.as_view(), name='my_stats'),
     path('search', views.SearchObjectsView.as_view(), name='geoobjects-search'),
 ]

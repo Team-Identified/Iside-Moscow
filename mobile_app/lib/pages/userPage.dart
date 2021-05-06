@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:mw_insider/components/loadingCircle.dart';
 import 'package:mw_insider/pages/loginPage.dart';
 import 'package:mw_insider/pages/profilePage.dart';
 import 'package:mw_insider/pages/signUpPage.dart';
@@ -99,9 +100,7 @@ class _UserPageState extends State<UserPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                      ),
+                      LoadingCircle(),
                       SizedBox(height: 20.0),
                       Text("Loading", style: TextStyle(fontSize: 20.0),),
                     ]

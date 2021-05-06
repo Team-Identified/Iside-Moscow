@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mw_insider/pages/homePage.dart';
+import 'package:mw_insider/pages/strollPage.dart';
 import 'package:mw_insider/pages/objectPage.dart';
+import 'package:mw_insider/main.dart';
 
 
-class HomeObjectPage extends StatefulWidget {
+class StrollObjectPage extends StatefulWidget {
   @override
-  _HomeObjectPageState createState() => _HomeObjectPageState();
+  _StrollObjectPageState createState() => _StrollObjectPageState();
 }
 
-class _HomeObjectPageState extends State<HomeObjectPage> {
+class _StrollObjectPageState extends State<StrollObjectPage> {
   Widget currentPage;
 
   void goToObjectPage(int objectId){
@@ -20,17 +21,18 @@ class _HomeObjectPageState extends State<HomeObjectPage> {
 
   void onGoBackCallBack(){
     setState(() {
-      currentPage = HomePage(onGoToObject: goToObjectPage);
+      currentPage = StrollPage(onGoToObject: goToObjectPage);
     });
   }
 
   void initializePage(){
     if (currentPage == null)
-      currentPage = HomePage(onGoToObject: goToObjectPage);
+      currentPage = StrollPage(onGoToObject: goToObjectPage);
   }
 
   @override
   Widget build(BuildContext context) {
+    locationService.requestLocationUpdate();
     initializePage();
     return Scaffold(
       body: currentPage,

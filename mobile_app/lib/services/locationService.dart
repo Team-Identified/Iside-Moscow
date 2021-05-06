@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:location/location.dart';
 import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/notificationService.dart';
@@ -11,7 +10,7 @@ class UserLocation{
   final double longitude;
   final bool loaded;
 
-  UserLocation({this.latitude, this.longitude, this.loaded});
+  UserLocation({this.latitude, this.longitude, this.loaded=false});
 }
 
 
@@ -32,11 +31,21 @@ class LocationService{
     loaded: false,
   );
 
-  UserLocation emptyUserLocation = UserLocation(
-    latitude: null,
-    longitude: null,
-    loaded: true,
-  );
+  void onDataReceived(LocationData locationData){
+    if (locationData != null){
+      currentTime = (new DateTime.now()).millisecondsSinceEpoch;
+      if (currentTime - lastUpdateTime > minUpdateDeltaTime || _currentLocation == null){
+        lastUpdateTime = currentTime;
+        checkNearbyObjectNotification(locationData);
+        _currentLocation = UserLocation(
+          latitude: locationData.latitude,
+          longitude: locationData.longitude,
+          loaded: true,
+        );
+        _locationController.add(_currentLocation);
+      }
+    }
+  }
 
   LocationService(){
     _locationController.add(loadingUserLocation);
@@ -44,23 +53,8 @@ class LocationService{
     checkLocationPermission().then((canGet) {
       if (canGet){
         location.onLocationChanged.listen((locationData) {
-          if (locationData != null){
-            currentTime = (new DateTime.now()).millisecondsSinceEpoch;
-            if (currentTime - lastUpdateTime > minUpdateDeltaTime){
-              checkNearbyObjectNotification(locationData);
-              lastUpdateTime = currentTime;
-              print(locationData);
-              _locationController.add(UserLocation(
-                latitude: locationData.latitude,
-                longitude: locationData.longitude,
-                loaded: true,
-              ));
-            }
-          }
+          onDataReceived(locationData);
         });
-      }
-      else{
-        _locationController.add(emptyUserLocation);
       }
     });
   }
@@ -80,4 +74,23 @@ class LocationService{
 
     return _currentLocation;
   }
+
+  void requestLocationUpdate() async {
+    UserLocation resLocation = await getLocation();
+    if (isUseful(resLocation)){
+      _locationController.add(_currentLocation);
+    }
+  }
+}
+
+bool isUseful(UserLocation locationData){
+  if (
+  locationData != null
+  && locationData.loaded
+  && locationData.latitude != null
+  && locationData.longitude != null
+  )
+    return true;
+  else
+    return false;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mw_insider/config.dart';
 
 class UnauthorizedPage extends StatelessWidget {
   @override
@@ -17,7 +18,7 @@ class UnauthorizedPage extends StatelessWidget {
                   "ATTENTION",
                   style: TextStyle(
                     fontSize: 20.0,
-                    color: Colors.deepPurpleAccent,
+                    color: themeColor,
                   ),
                 ),
                 SizedBox(height: 10.0),

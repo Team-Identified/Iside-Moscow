@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mw_insider/components/Button.dart';
+import 'package:mw_insider/components/loadingCircle.dart';
+import 'package:mw_insider/components/middleButton.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
-import 'package:mw_insider/services/backgroundService.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -72,7 +72,7 @@ class _ProfileState extends State<ProfilePage> {
                         child: ListTile(
                           leading: Icon(
                             Icons.cake,
-                            color: Colors.deepPurple[900],
+                            color: themeColorShade,
                           ),
                           title: Text(
                             dateJoined,
@@ -91,7 +91,7 @@ class _ProfileState extends State<ProfilePage> {
                         child: ListTile(
                           leading: Icon(
                             Icons.email,
-                            color: Colors.deepPurple[900],
+                            color: themeColorShade,
                           ),
                           title: Text(
                             email,
@@ -110,7 +110,7 @@ class _ProfileState extends State<ProfilePage> {
                         child: ListTile(
                           leading: Icon(
                             Icons.star,
-                            color: Colors.deepPurple[900],
+                            color: themeColorShade,
                           ),
                           title: Text(
                           "Rank: $rank, Points: $points",
@@ -122,7 +122,7 @@ class _ProfileState extends State<ProfilePage> {
                           ),
                         )
                       ),
-                      Button(
+                      MiddleButton(
                         text: "LOG OUT",
                         press: () async {
                           await storage.delete(key: "access_jwt");
@@ -130,10 +130,6 @@ class _ProfileState extends State<ProfilePage> {
                           widget.onLogOutPressed();
                         },
                       ),
-                      Button(
-                          text: "Режим прогулки",
-                          press: () {switchBackgroundService();},
-                      )
                     ],
                   ),
                 ),
@@ -150,9 +146,7 @@ class _ProfileState extends State<ProfilePage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                          ),
+                          LoadingCircle(),
                           SizedBox(height: 20.0),
                           Text("Loading", style: TextStyle(fontSize: 20.0),),
                         ]

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mw_insider/config.dart';
 
 class AlreadyHaveAnAccount extends StatelessWidget {
   final bool login;
@@ -17,7 +18,7 @@ class AlreadyHaveAnAccount extends StatelessWidget {
         Text(
           login ? "Don’t have an Account? " : "Already have an Account? ",
           style: TextStyle(
-            color: Colors.deepPurple,
+            color: themeColorShade,
             fontSize: 15.0
           ),
         ),
@@ -26,7 +27,7 @@ class AlreadyHaveAnAccount extends StatelessWidget {
           child: Text(
             login ? "Sign Up" : "Sign In",
             style: TextStyle(
-              color: Colors.deepPurple,
+              color: themeColorShade,
               fontWeight: FontWeight.bold,
               fontSize: 16.0,
             ),

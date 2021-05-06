@@ -21,7 +21,7 @@ class LocationPermissionErrorPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepPurpleAccent,
+                    color: themeColor,
                   ),
                 ),
                 SizedBox(height: 30.0),

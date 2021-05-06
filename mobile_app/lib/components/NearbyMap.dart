@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
 import 'package:mw_insider/services/locationService.dart';
 import 'package:latlong/latlong.dart';
@@ -21,6 +22,13 @@ class _NearbyMapState extends State<NearbyMap> {
   var locationData;
 
   Future<Map> loadData() async{
+    if (!isUseful(locationData)){
+      return {
+        "nearbyObjects": [],
+        "userLocation": null,
+      };
+    }
+
     Map requestData = {
       "latitude": locationData.latitude,
       "longitude": locationData.longitude,
@@ -51,8 +59,7 @@ class _NearbyMapState extends State<NearbyMap> {
     return FutureBuilder<Map>(
       future: loadData(),
       builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
-        if (snapshot.hasData){
-
+        if (snapshot.hasData && isUseful(locationData)){
           List<Marker> markers = [];
           for (int i = 0; i < snapshot.data['nearbyObjects'].length; ++i){
             double markerLat = snapshot.data['nearbyObjects'][i]['latitude'];
@@ -67,7 +74,7 @@ class _NearbyMapState extends State<NearbyMap> {
               point: LatLng(markerLat, markerLon),
               builder: (ctx) =>
                   Container(
-                    child: Icon(markerIconData, color: Colors.deepPurpleAccent),
+                    child: Icon(markerIconData, color: themeColor),
                   ),
             );
             markers.add(marker);
@@ -108,7 +115,7 @@ class _NearbyMapState extends State<NearbyMap> {
             height: widget.height,
             child: Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                valueColor: AlwaysStoppedAnimation<Color>(themeColorShade),
               ),
             ),
           );

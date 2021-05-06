@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mw_insider/components/loadingCircle.dart';
+import 'package:mw_insider/components/objectCard.dart';
 import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
 import 'package:mw_insider/services/locationService.dart';
-import 'package:mw_insider/services/uiService.dart';
 import 'dart:math';
 import 'package:provider/provider.dart';
+
 
 
 class NearbyObjectsList extends StatefulWidget {
@@ -22,7 +24,7 @@ class _NearbyObjectsListState extends State<NearbyObjectsList> {
   var locationData;
 
   Future<void> loadData() async{
-    if (!mounted) {
+    if (!mounted || !isUseful(locationData)) {
       return; // Just do nothing if the widget is disposed.
     }
     Map requestData = {
@@ -30,9 +32,11 @@ class _NearbyObjectsListState extends State<NearbyObjectsList> {
       "longitude": locationData.longitude,
     };
     Map response = await serverRequest('post', 'geo_objects/get_nearby_objects', requestData);
-    setState(() {
-      nearbyObjects = response['objects'];
-    });
+    if (mounted) {
+      setState(() {
+        nearbyObjects = response['objects'];
+      });
+    }
   }
 
   @override
@@ -46,7 +50,7 @@ class _NearbyObjectsListState extends State<NearbyObjectsList> {
       behavior: ScrollBehavior(),
       child: GlowingOverscrollIndicator(
         axisDirection: AxisDirection.down,
-        color: Colors.deepPurpleAccent,
+        color: themeColor,
         child: ListView.separated(
           padding: EdgeInsets.all(0.0),
           shrinkWrap: true,
@@ -79,9 +83,7 @@ class _NearbyObjectsListState extends State<NearbyObjectsList> {
                 child: Column(
                   children: [
                     SizedBox(height: 10.0),
-                    CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                    ),
+                    LoadingCircle(),
                     SizedBox(height: 15.0),
                   ],
                 ),
@@ -93,187 +95,3 @@ class _NearbyObjectsListState extends State<NearbyObjectsList> {
     );
   }
 }
-
-class ObjectCard extends StatelessWidget {
-  final int id;
-  final String objectUrl;
-  final int distance;
-  final String category;
-  final String nameRu;
-  final String nameEn;
-  final String wikiRu;
-  final String wikiEn;
-  final String imgUrl;
-  final String address;
-  final void Function(int) onGoToObject;
-
-
-
-  const ObjectCard({
-    this.id,
-    this.objectUrl,
-    this.distance,
-    this.category,
-    this.nameRu,
-    this.nameEn,
-    this.wikiRu,
-    this.wikiEn,
-    this.imgUrl,
-    this.address,
-    this.onGoToObject,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return GestureDetector(
-      onTap: (){
-        onGoToObject(id);
-      },
-      child: Container(
-        padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              nameRu,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-              ),
-            ),
-            Text(
-              nameEn,
-              style: TextStyle(
-                fontSize: 17.0,
-              ),
-            ),
-            Divider(),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          getIcon(category),
-                          color: Colors.blueGrey,
-                        ),
-                        Container(
-                          width: screenWidth * 0.6,
-                          child: Text(
-                            capitalize(category),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.blueGrey,
-                        ),
-                        Container(
-                          width: screenWidth * 0.6,
-                          child: Text(
-                            capitalize(address),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.directions_walk_outlined,
-                          color: Colors.blueGrey,
-                        ),
-                        Container(
-                          width: screenWidth * 0.6,
-                          child: Text(
-                            "${distance.toString()}m",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  width: 100.0,
-                  height: 100.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: Image.network(
-                      imgUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
-                        return Image.network(
-                          animeGirlsUrl,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, progress){
-                            return progress == null
-                                ? child
-                                : Container(
-                              color: Colors.grey[300],
-                              padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                                ),
-                              ),
-                            );
-                          },
-                          errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
-                            return Container(
-                              color: Colors.grey[300],
-                              padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      loadingBuilder: (context, child, progress){
-                        return progress == null
-                            ? child
-                            : Container(
-                          color: Colors.grey[300],
-                          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-

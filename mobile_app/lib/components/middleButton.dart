@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mw_insider/config.dart';
 
 
-class Button extends StatelessWidget {
+class MiddleButton extends StatelessWidget {
   final String text;
   final Function press;
 
-  Button({
+  MiddleButton({
     @required this.text,
     @required this.press,
   });

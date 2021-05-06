@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mw_insider/components/loadingCircle.dart';
 import 'package:mw_insider/config.dart';
 
 class ArticleImage extends StatelessWidget {
@@ -22,11 +23,7 @@ class ArticleImage extends StatelessWidget {
               : Container(
             color: Colors.grey[300],
             padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-            child: Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-              ),
-            ),
+            child: LoadingCircle(),
           );
         },
       );
