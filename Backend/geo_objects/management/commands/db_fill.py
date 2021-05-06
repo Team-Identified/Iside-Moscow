@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 latitude=data['latitude'],
                 longitude=data['longitude'],
             )
-            obj.save()
+            obj.save(push_to_tree=False)
             obj.tags.set(data['category'], clear=True)
-            obj.save()
+            obj.save(push_to_tree=False)
         print(f'Data base filled successfully!')

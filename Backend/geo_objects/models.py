@@ -34,10 +34,11 @@ class GeoObject(models.Model):
                                     default=None, on_delete=models.SET_NULL)
     tags = TaggableManager(help_text="A comma-separated list of tags.", blank=False)
 
-    def save(self, *args, **kwargs):
+    def save(self, push_to_tree=True, *args, **kwargs):
         super().save(*args, **kwargs)  # Call the "real" save() method.
-        quad_tree = QuadTree.objects.get(is_root=True)
-        bq.insert(self, quad_tree)
+        if push_to_tree:
+            quad_tree = QuadTree.objects.get(is_root=True)
+            bq.insert(self, quad_tree)
 
     def __str__(self):
         return f'{self.category}: {self.name_ru}/{self.name_en}'
