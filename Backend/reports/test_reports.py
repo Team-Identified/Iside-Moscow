@@ -1,15 +1,10 @@
-import datetime
-
 import pytest
 from django.contrib.auth.models import User
 from rest_framework.test import APIRequestFactory, force_authenticate
-
-
-# Create your tests here.
-from .models import Report
 from .views import ReportViewSet
 from geo_objects.models import GeoObject
 
+# Create your tests here.
 
 @pytest.mark.django_db
 def test_post():
