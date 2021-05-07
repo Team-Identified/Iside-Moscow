@@ -1146,7 +1146,7 @@
   {
     "address": "Подсосенский переулок, 19/28",
     "category": "monument",
-    "image_url": null,
+    "image_url": "https://peterburg.center/sites/default/files/pamyatnik_zhukovskomu_v_aleksandrovskom_sadu_0.jpg",
     "latitude": 55.75640999048781,
     "longitude": 37.65337001423043,
     "name_en": "Monument to Vasily Zhukovsky",
@@ -4413,11 +4413,11 @@
   {
     "address": "Фурманный переулок, 6",
     "category": "museum",
-    "image_url": null,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/%D0%94%D0%BE%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9_%D0%B4%D0%BE%D0%BC_%28%D0%B2_%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9_%D0%B8%D0%B7_%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80_%D1%8D%D1%82%D0%BE%D0%B3%D0%BE_%D0%B4%D0%BE%D0%BC%D0%B0_%D0%B6%D0%B8%D0%BB_%D0%92%D0%B0%D1%81%D0%BD%D0%B5%D1%86%D0%BE%D0%B2_%D0%90._%D0%9C._%D0%B2_%D0%BF%D0%B5%D1%80%D0%B8%D0%BE%D0%B4_%D1%81_1904_%D0%BF%D0%BE_1933_%D0%B3%D0%B3.%29.JPG/1365px-%D0%94%D0%BE%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9_%D0%B4%D0%BE%D0%BC_%28%D0%B2_%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9_%D0%B8%D0%B7_%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80_%D1%8D%D1%82%D0%BE%D0%B3%D0%BE_%D0%B4%D0%BE%D0%BC%D0%B0_%D0%B6%D0%B8%D0%BB_%D0%92%D0%B0%D1%81%D0%BD%D0%B5%D1%86%D0%BE%D0%B2_%D0%90._%D0%9C._%D0%B2_%D0%BF%D0%B5%D1%80%D0%B8%D0%BE%D0%B4_%D1%81_1904_%D0%BF%D0%BE_1933_%D0%B3%D0%B3.%29.JPG",
     "latitude": 55.763790004776695,
     "longitude": 37.648529968060814,
-    "name_en": "Memorial Museum-Apartment A. M. Vasnetsova",
-    "name_ru": "Мемориальный музей-квартира А. М. Васнецова",
+    "name_en": "Memorial Museum-Apartment of A.M.Vasnetsov",
+    "name_ru": "Мемориальный музей-квартира А.М.Васнецова",
     "wiki_en": null,
     "wiki_ru": "https://ru.m.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BC%D0%BE%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0_%D0%90._%D0%9C._%D0%92%D0%B0%D1%81%D0%BD%D0%B5%D1%86%D0%BE%D0%B2%D0%B0"
   },
@@ -5898,13 +5898,13 @@
   {
     "address": "улица Чаплыгина, д.1a, кв. 37",
     "category": "museum",
-    "image_url": null,
+    "image_url": "https://basmania.ru/wp-content/uploads/2019/06/%D1%84%D0%B2%D0%B1%D1%80%D0%B8%D0%BA%D0%B03-370x260.jpeg",
     "latitude": 55.76433000888878,
     "longitude": 37.64598999994155,
     "name_en": "Museum-Apartment Academician S. A. Chaplygin",
     "name_ru": "Музей-квартира академика С. А. Чаплыгина",
-    "wiki_en": null,
-    "wiki_ru": "https://ru.m.wikipedia.org/w/index.php?title=%D0%9C%D1%83%D0%B7%D0%B5%D0%B9-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0_%D0%B0%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%BA%D0%B0_%D0%A1._%D0%90._%D0%A7%D0%B0%D0%BF%D0%BB%D1%8B%D0%B3%D0%B8%D0%BD%D0%B0&action=edit&redlink=1"
+    "wiki_en": "https://en.wikipedia.org/wiki/Sergey_Chaplygin",
+    "wiki_ru": "https://ru.wikipedia.org/wiki/%D0%A7%D0%B0%D0%BF%D0%BB%D1%8B%D0%B3%D0%B8%D0%BD,_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B5%D0%B2%D0%B8%D1%87"
   },
   {
     "address": "Большая Никитская улица, 6",
@@ -6734,10 +6734,10 @@
   {
     "address": "Чистопрудный бульвар, 14/3",
     "category": "museum",
-    "image_url": null,
+    "image_url": "https://mos-holidays.ru/wp-content/uploads/2010/05/okeanarium-na-chistyh-prudah.jpg",
     "latitude": 55.75993001263586,
     "longitude": 37.64442996012252,
-    "name_en": "Marine Aquarium on Pure Ponds",
+    "name_en": "Marine Aquarium on Chistizh Prudah",
     "name_ru": "Морской аквариум на Чистых прудах",
     "wiki_en": null,
     "wiki_ru": "https://ru.m.wikipedia.org/w/index.php?title=%D0%9C%D0%BE%D1%80%D1%81%D0%BA%D0%BE%D0%B9_%D0%B0%D0%BA%D0%B2%D0%B0%D1%80%D0%B8%D1%83%D0%BC_%D0%BD%D0%B0_%D0%A7%D0%B8%D1%81%D1%82%D1%8B%D1%85_%D0%BF%D1%80%D1%83%D0%B4%D0%B0%D1%85&action=edit&redlink=1"
@@ -9531,8 +9531,8 @@
     "image_url": "https://www.restoran.ru/upload/resize_cache/iblock/c63/350_290_2/img_0009_2945.jpg",
     "latitude": 55.763709999510894,
     "longitude": 37.64235996531431,
-    "name_en": "Andy’s Friends / Endi’s Frends",
-    "name_ru": "Andy’s Friends / Энди’с Френдс",
+    "name_en": "Endi’s Frends",
+    "name_ru": "Энди’с Френдс",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -10686,8 +10686,8 @@
     "image_url": "https://www.restoran.ru/upload/resize_cache/iblock/f34/1000_708_11a88371ca9e7ba72ce6f5767ba9eff1a/dsc_1550_2f63.jpg",
     "latitude": 55.7598903273217,
     "longitude": 37.64824507981083,
-    "name_en": "Don Giulio Pasticceria / Don Dzhulio Pastichcherija",
-    "name_ru": "Don Giulio Pasticceria / Дон Джулио Пастиччерия",
+    "name_en": "Don Giulio Pasticceria",
+    "name_ru": "Дон Джулио Пастиччерия",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -10895,8 +10895,8 @@
     "image_url": "https://www.restoran.ru/upload/resize_cache/iblock/eb6/350_290_2/est_4.jpg",
     "latitude": 55.7612886783435,
     "longitude": 37.65104029317833,
-    "name_en": "Est Caffe / Est Kafe",
-    "name_ru": "Est Caffe / Эст Кафе",
+    "name_en": "Est Caffe",
+    "name_ru": "Эст Кафе",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -11093,8 +11093,8 @@
     "image_url": "https://www.restoran.ru/upload/resize_cache/iblock/d4d/1000_666_188984fb440a23db0ecf5c453c8495a18/14_2d98.jpg",
     "latitude": 55.799962229907656,
     "longitude": 37.712768090671254,
-    "name_en": "Friends / Frends (Krasnobogatyrskaja ul.)",
-    "name_ru": "Friends / Френдс (Краснобогатырская ул.)",
+    "name_en": "Friends (Krasnobogatyrskaja st.)",
+    "name_ru": "Френдс (Краснобогатырская ул.)",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -11104,8 +11104,8 @@
     "image_url": "https://www.restoran.ru/upload/resize_cache/iblock/221/1000_666_11a88371ca9e7ba72ce6f5767ba9eff1a/zal_1_2870.jpg",
     "latitude": 55.754541524581285,
     "longitude": 37.598078397934614,
-    "name_en": "Friends Hall Newtone / Frends Holl N'juton",
-    "name_ru": "Friends Hall Newtone / Френдс Холл Ньютон",
+    "name_en": "Friends Hall Newtone",
+    "name_ru": "Френдс Холл Ньютон",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -12512,8 +12512,8 @@
     "image_url": "https://www.gmcwilliam.co.uk/wp-content/uploads/2017/09/Cooked-Meats.jpg",
     "latitude": 55.70496999924302,
     "longitude": 37.64046003932154,
-    "name_en": "Meat&Fish / Mjaso&Ryba",
-    "name_ru": "Meat&Fish / Мясо&Рыба",
+    "name_en": "Meat&Fish",
+    "name_ru": "Мясо&Рыба",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -12523,8 +12523,8 @@
     "image_url": "https://www.gmcwilliam.co.uk/wp-content/uploads/2017/09/Cooked-Meats.jpg",
     "latitude": 55.76205718643653,
     "longitude": 37.652217812041314,
-    "name_en": "Meat&More / Mit end Mo",
-    "name_ru": "Meat&More / Мит энд Мо",
+    "name_en": "Meat&More",
+    "name_ru": "Meat&More",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -12633,8 +12633,8 @@
     "image_url": "http://tcdn.teacherspayteachers.com/thumbitem/Mr-HELP-Poster-5-Themes-of-Geography/original-297817-1.jpg",
     "latitude": 55.77575999115396,
     "longitude": 37.58565999455081,
-    "name_en": "Mr. Help & Friends / Mister Help end Frends",
-    "name_ru": "Mr. Help & Friends / Мистер Хэлп энд Френдс",
+    "name_en": "Mr. Help & Friends",
+    "name_ru": "Мистер Хэлп энд Френдс",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -12831,8 +12831,8 @@
     "image_url": "https://www.restoran.ru/upload/resize_cache/iblock/87a/350_290_2/dsc_6943_2676.jpg",
     "latitude": 55.758739991932515,
     "longitude": 37.646529962144115,
-    "name_en": "O’Connell’s Pub / O’Konnell’s Pab",
-    "name_ru": "O’Connell’s Pub / О’Коннелл’с Паб",
+    "name_en": "O’Connell’s Pub",
+    "name_ru": "О’Коннелл’с Паб",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -13645,8 +13645,8 @@
     "image_url": "https://www.restoran.ru/upload/resize_cache/iblock/986/1000_666_11a88371ca9e7ba72ce6f5767ba9eff1a/semplice_04_228c.jpg",
     "latitude": 55.72828870853985,
     "longitude": 37.61447943694933,
-    "name_en": "Semplice Trattoria / Sempliche Trattorija (Mytnaja ul.)",
-    "name_ru": "Semplice Trattoria / Семпличе Траттория (Мытная ул.)",
+    "name_en": "Sempliche Trattorija (Mytnaja st.)",
+    "name_ru": "Семпличе Траттория (Мытная ул.)",
     "wiki_en": null,
     "wiki_ru": null
   },
@@ -19285,7 +19285,7 @@
   {
     "address": "ул. Покровка, д. 20/1, стр. 1",
     "category": "restaurant",
-    "image_url": "https://restoran.cafe/media/cache/main_img/media/promo/62/5fe5c9d50772c.jpeg",
+    "image_url": "https://www.restoclub.ru/uploads/place_thumbnail_big/e/0/7/0/e070d5f3a2ac329aef363202d0989796.jpg",
     "latitude": 55.75853999972276,
     "longitude": 37.64723999316209,
     "name_en": "Frends «V gostjah u Moniki»",
@@ -21675,7 +21675,7 @@
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Moscow%2C_Sovremennik_theatre_2019_03.jpg",
     "latitude": 55.76166666666666,
     "longitude": 37.645833333333336,
-    "name_en": "Moscow Theater \"Contemporary\"",
+    "name_en": "Moscow Theater \"Sovremenniik\"",
     "name_ru": "Московский театр «Современник»",
     "wiki_en": "https://en.wikipedia.org/wiki/Sovremennik_Theatre",
     "wiki_ru": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%B8%D0%BA_(%D1%82%D0%B5%D0%B0%D1%82%D1%80)"
@@ -21741,7 +21741,7 @@
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Theatre_of_Oleg_Tabakov.jpg",
     "latitude": 55.76444444444444,
     "longitude": 37.64611111111111,
-    "name_en": "Moscow Theater Oleg Tabakov",
+    "name_en": "Moscow's Theater of Oleg Tabakov",
     "name_ru": "Московский театр Олега Табакова",
     "wiki_en": null,
     "wiki_ru": "https://ru.wikipedia.org/wiki/%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D1%82%D0%B5%D0%B0%D1%82%D1%80_%D0%9E%D0%BB%D0%B5%D0%B3%D0%B0_%D0%A2%D0%B0%D0%B1%D0%B0%D0%BA%D0%BE%D0%B2%D0%B0"
@@ -21943,17 +21943,6 @@
     "name_ru": "Театр «Ромэн»",
     "wiki_en": "https://en.wikipedia.org/wiki/Romen_Theatre",
     "wiki_ru": "https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%B0%D1%82%D1%80_%C2%AB%D0%A0%D0%BE%D0%BC%D1%8D%D0%BD%C2%BB"
-  },
-  {
-    "address": "Чистопрудный бульвар, 19 стр 1",
-    "category": "theatre",
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Moscow%2C_Sovremennik_theatre_2019_03.jpg",
-    "latitude": 55.76166666666666,
-    "longitude": 37.645833333333336,
-    "name_en": "Theater \"Contemporary\"",
-    "name_ru": "Театр «Современник»",
-    "wiki_en": "https://en.wikipedia.org/wiki/Sovremennik_Theatre",
-    "wiki_ru": "https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%B0%D1%82%D1%80_%C2%AB%D0%A1%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%B8%D0%BA%C2%BB"
   },
   {
     "address": "Улица каретный ряд, 3 стр 3",
