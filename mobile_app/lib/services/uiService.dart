@@ -75,7 +75,7 @@ String getRussianCategoryMNCH(String category){
 
 
 String getRankIconPath(String rank){
-  if (rank == 'Новичок') return 'assets/images/rangs/rang_10.png';
+  if (rank == 'Новичок') return 'assets/images/rangs/rang_0.png';
   else if (rank == 'Любитель') return 'assets/images/rangs/rang_1.png';
   else if (rank == 'Знаток') return 'assets/images/rangs/rang_2.png';
   else if (rank == 'Продвинутый') return 'assets/images/rangs/rang_3.png';
@@ -86,4 +86,19 @@ String getRankIconPath(String rank){
   else if (rank == 'Дока') return 'assets/images/rangs/rang_8.png';
   else if (rank == 'Богоподобный') return 'assets/images/rangs/rang_10.png';
   else return 'assets/images/rangs/rang_0.png';
+}
+
+
+List<int> getPointsBoundaries(String rank){
+  if (rank == 'Новичок') return [0, 14];
+  else if (rank == 'Любитель') return [15, 74];
+  else if (rank == 'Знаток') return [75, 249];
+  else if (rank == 'Продвинутый') return [250, 499];
+  else if (rank == 'Эксперт') return [500, 1499];
+  else if (rank == 'Мастер') return [1500, 4999];
+  else if (rank == 'Просветленный') return [5000, 14999];
+  else if (rank == 'Гуру') return [15000, 49999];
+  else if (rank == 'Дока') return [50000, 99999];
+  else if (rank == 'Богоподобный') return [100000, 691337];
+  else return [0, 691337];
 }

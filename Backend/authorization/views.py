@@ -23,10 +23,6 @@ class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
 
 
 class SetTagsView(APIView):
-    """
-    Get nearby objects for user by coordinates
-    """
-
     permission_classes = [IsAuthenticated]
     serializer_class = SetTagsRequestSerializer
 
@@ -40,6 +36,24 @@ class SetTagsView(APIView):
                 current_user.notification_tags.add(tag)
             current_user.save()
             return Response(data={"status": "ok", "tags added": tags}, status=status.HTTP_200_OK)
+        else:
+            return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RemoveTagsView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = SetTagsRequestSerializer
+
+    @staticmethod
+    def post(request):
+        request_serializer = SetTagsRequestSerializer(data=request.data)
+        if request_serializer.is_valid():
+            tags = request_serializer.data.get('tags').split(', ')
+            current_user = UserProfile.objects.get(user=request.user)
+            for tag in tags:
+                current_user.notification_tags.remove(tag)
+            current_user.save()
+            return Response(data={"status": "ok", "tags removed": tags}, status=status.HTTP_200_OK)
         else:
             return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

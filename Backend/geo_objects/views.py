@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.reverse import reverse
 from authorization.models import UserProfile
+from authorization.tools import update_user_points
 from config import GEO_OBJECTS_SEARCH_SIMILARITY, GEO_OBJECTS_SEARCH_MAX_RESULTS, NEARBY_OBJECTS_NOTIFY_RADIUS, \
     NEARBY_OBJECTS_EXPLORATION_RADIUS
 from geo_objects.models import GeoObject, SubmittedGeoObject, UserObjectExploration
@@ -63,6 +64,8 @@ class SubmittedGeoObjectViewSet(viewsets.ViewSet):
 
     @staticmethod
     def create(request):
+        update_user_points(request.user, 15)
+
         serializer = SubmittedGeoObjectSerializer(data=request.data)
         if serializer.is_valid():
             contributor = None

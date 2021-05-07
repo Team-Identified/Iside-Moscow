@@ -4,6 +4,8 @@ from rest_framework.reverse import reverse
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+
+from authorization.tools import update_user_points
 from .models import Report
 from .serializers import ReportViewSerializer, ReportCreateSerializer
 from .permissions import ReportsMainPermission
@@ -17,6 +19,8 @@ class ReportViewSet(ViewSet):
 
     @staticmethod
     def create(request):
+        update_user_points(request.user, 10)
+
         serializer = ReportCreateSerializer(data=request.data)
         if serializer.is_valid():
             user = request.user if request.user.is_authenticated else None
