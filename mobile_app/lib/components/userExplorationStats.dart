@@ -153,8 +153,7 @@ class _UserExplorationStatsState extends State<UserExplorationStats> {
       loadData();
       return Container(child: Center(child: LoadingCircle()));
     }
-    else{
-      // Widget statsColumn = composeStatsColumn();
+    else if (stats['total'] > 0){
       Widget pieChart = composePieChart();
       return Container(
         child: Column(
@@ -167,19 +166,38 @@ class _UserExplorationStatsState extends State<UserExplorationStats> {
                 child: pieChart,
               ),
             )
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            //   child: Text(
-            //     "Всего открыто: ${stats['total']}",
-            //     style: TextStyle(
-            //       fontSize: 17.0,
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            //   child: statsColumn
-            // ),
+          ],
+        ),
+      );
+    }
+    else {
+      return Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            title,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              width: screenWidth,
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    color: Colors.blueGrey.withOpacity(0.2),
+                    child: Center(
+                      child: Text(
+                        "Для вас пока нет статистики",
+                        style: TextStyle(
+                          fontSize: 17.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
           ],
         ),
       );

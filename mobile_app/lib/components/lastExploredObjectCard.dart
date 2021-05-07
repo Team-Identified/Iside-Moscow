@@ -124,14 +124,23 @@ class _LastExploredObjectCardState extends State<LastExploredObjectCard> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               width: screenWidth,
-              child: Container(
-                color: Colors.blueGrey.withOpacity(0.2),
-                child: Text(
-                  "Вы пока не открыли ни одного объекта",
-                  style: TextStyle(
-                    fontSize: 17.0,
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    color: Colors.blueGrey.withOpacity(0.2),
+                    child: Center(
+                      child: Text(
+                        "Вы пока не открыли ни одного объекта",
+                        style: TextStyle(
+                          fontSize: 17.0,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(height: 10),
+                ],
               ),
             ),
           ],

@@ -60,6 +60,17 @@ flutter:
 
   assets:
     - assets/images/AnimeGirls.jpg
+    - assets/images/rangs/rang_0.png
+    - assets/images/rangs/rang_1.png
+    - assets/images/rangs/rang_2.png
+    - assets/images/rangs/rang_3.png
+    - assets/images/rangs/rang_4.png
+    - assets/images/rangs/rang_5.png
+    - assets/images/rangs/rang_6.png
+    - assets/images/rangs/rang_7.png
+    - assets/images/rangs/rang_8.png
+    - assets/images/rangs/rang_9.png
+    - assets/images/rangs/rang_10.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

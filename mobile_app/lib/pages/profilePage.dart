@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mw_insider/services/uiService.dart';
 import 'package:mw_insider/components/loadingCircle.dart';
 import 'package:mw_insider/components/middleButton.dart';
 import 'package:intl/intl.dart';
@@ -55,7 +56,8 @@ class _ProfileState extends State<ProfilePage> {
                     children: <Widget>[
                       CircleAvatar(
                         radius: 85,
-                        backgroundImage: NetworkImage(animeGirlsUrl),
+                        backgroundImage: AssetImage(getRankIconPath(rank)),
+                        backgroundColor: Colors.black,
                       ),
                       SizedBox(height: 30),
                       Text(

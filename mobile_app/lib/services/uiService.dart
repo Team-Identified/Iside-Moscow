@@ -72,3 +72,18 @@ String getRussianCategoryMNCH(String category){
   else if (category == "other") return "другие";
   else return "неизвестной категории";
 }
+
+
+String getRankIconPath(String rank){
+  if (rank == 'Новичок') return 'assets/images/rangs/rang_10.png';
+  else if (rank == 'Любитель') return 'assets/images/rangs/rang_1.png';
+  else if (rank == 'Знаток') return 'assets/images/rangs/rang_2.png';
+  else if (rank == 'Продвинутый') return 'assets/images/rangs/rang_3.png';
+  else if (rank == 'Эксперт') return 'assets/images/rangs/rang_4.png';
+  else if (rank == 'Мастер') return 'assets/images/rangs/rang_5.png';
+  else if (rank == 'Просветленный') return 'assets/images/rangs/rang_6.png';
+  else if (rank == 'Гуру') return 'assets/images/rangs/rang_7.png';
+  else if (rank == 'Дока') return 'assets/images/rangs/rang_8.png';
+  else if (rank == 'Богоподобный') return 'assets/images/rangs/rang_10.png';
+  else return 'assets/images/rangs/rang_0.png';
+}
