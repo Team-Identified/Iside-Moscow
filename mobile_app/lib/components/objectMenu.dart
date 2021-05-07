@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../config.dart';
+import '../tools.dart';
 import 'Button.dart';
 
 
 class ObjMenu extends StatefulWidget {
+  final int objectId;
+
+  ObjMenu({Key key, @required this.objectId}) : super(key: key);
+
   @override
   ObjMenuState createState() => new ObjMenuState();
 }
@@ -25,7 +30,17 @@ class ObjMenuState extends State<ObjMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        visualDensity: VisualDensity.compact,
+        primary: Colors.black.withOpacity(0.3),
+        elevation: 5,
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      ),
+      onPressed: () {},
+      child: PopupMenuButton(
+        iconSize: 25,
         onSelected: (result) {
           if (result == "report") {
             showDialog(
@@ -40,7 +55,24 @@ class ObjMenuState extends State<ObjMenu> {
                         Button(
                           text: "Отправить",
                           press:(){
-                            //вставить Запрос
+                            Map requestData = {
+                              'obj_id': widget.objectId,
+                            };
+                            for (String key in values.keys){
+                              if (values[key]){
+                                if (key == "Категория") requestData['category_problem'] = true;
+                                else if (key == "Рус. название") requestData['ru_name_problem'] = true;
+                                else if (key == "Англ. название") requestData['en_name_problem'] = true;
+                                else if (key == "Рус. Википедия") requestData['ru_wiki_problem'] = true;
+                                else if (key == "Англ. Википедия") requestData['en_wiki_problem'] = true;
+                                else if (key == "Картинка") requestData['image_problem'] = true;
+                                else if (key == "Адрес") requestData['address_problem'] = true;
+                                else if (key == "Координаты") requestData['map_location_problem'] = true;
+                                else if (key == "Дупликат") requestData['duplicate_problem'] = true;
+                                else requestData['other_problem'] = true;
+                              }
+                            }
+                            serverRequest('post', '/reports/new/', requestData);
                             Navigator.of(context, rootNavigator: true).pop('dialog');
                           },
                         )
@@ -97,6 +129,8 @@ class ObjMenuState extends State<ObjMenu> {
                       Text('Сообщить об ошибке')
                     ],
                   )),
-            ]);
+            ]
+      ),
+    );
   }
 }

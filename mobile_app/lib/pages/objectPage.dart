@@ -188,9 +188,9 @@ class _ObjectPageState extends State<ObjectPage> {
                       ),
                     ),
                     Positioned(
-                      right: 10,
-                      top: 0,
-                      child: ObjMenu(),
+                      right: 10.0,
+                      top: 8.0,
+                      child: ObjMenu(objectId: widget.objectId),
                     ),
                     Positioned(
                       top: 3.0,
