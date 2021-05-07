@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:mw_insider/components/loadingCircle.dart';
+import 'package:mw_insider/components/objectMenu.dart';
+import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
 import 'package:mw_insider/services/geoService.dart';
 import 'package:mw_insider/services/locationService.dart';
@@ -10,7 +12,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:mw_insider/services/uiService.dart';
 import 'package:mw_insider/services/urlLauncherService.dart';
 import 'package:provider/provider.dart';
-import '../config.dart';
 
 
 class ObjectPage extends StatefulWidget {
@@ -186,11 +187,16 @@ class _ObjectPageState extends State<ObjectPage> {
                       ),
                     ),
                     Positioned(
+                      right: 10.0,
+                      top: 8.0,
+                      child: ObjMenu(objectId: widget.objectId),
+                    ),
+                    Positioned(
                       top: 3.0,
                       left: 10.0,
                       child: Container(
                         child: ElevatedButton(
-                          child: Icon(MdiIcons.arrowLeft, color: Colors.white, size: 27.0,),
+                          child: Icon(Icons.arrow_left, color: Colors.white, size: 27.0,),
                           onPressed: widget.onGoBack,
                           style: ElevatedButton.styleFrom(
                             primary: Colors.black.withOpacity(0.3),
