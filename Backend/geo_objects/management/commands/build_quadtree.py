@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-# from geo_objects.models import *
-import geo_objects.models as models
+from geo_objects.models import *
+# import geo_objects.models as models
 from math import floor
 from config import QUADTREE_CAPACITY
 from geo_objects.management.commands.visualize_quadtree import visualize

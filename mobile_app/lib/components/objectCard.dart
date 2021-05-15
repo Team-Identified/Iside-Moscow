@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mw_insider/components/loadingCircle.dart';
-import 'package:mw_insider/config.dart';
 import 'package:mw_insider/services/uiService.dart';
 
 

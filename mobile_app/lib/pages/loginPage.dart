@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' show json;
 import 'package:mw_insider/config.dart';
 import 'package:mw_insider/components/middleButton.dart';
 import 'package:mw_insider/components/alreadyHaveAnAccount.dart';
 import 'package:mw_insider/components/authErrorMessage.dart';
+import 'package:mw_insider/services/authorizationService.dart';
 
 void displayDialog(context, title, text) => showDialog(
       context: context,
@@ -41,14 +40,6 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       errorMessages = [];
     });
-  }
-
-  Future<Map> attemptLogIn(String username, String password) async {
-    var res = await http.post(Uri.http(SERVER_URL, '/auth/jwt/create/'),
-        body: {"username": username, "password": password});
-    int statusCode = res.statusCode;
-    Map body = json.decode(res.body);
-    return {"statuscode": statusCode, "body": body};
   }
 
   @override

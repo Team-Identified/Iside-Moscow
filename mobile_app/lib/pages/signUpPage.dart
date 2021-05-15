@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:mw_insider/components/authErrorMessage.dart';
-import 'dart:convert' show json;
-import 'package:mw_insider/config.dart';
-import 'package:mw_insider/pages/loginPage.dart';
 import 'package:mw_insider/components/middleButton.dart';
 import 'package:mw_insider/components/alreadyHaveAnAccount.dart';
+import 'package:mw_insider/services/authorizationService.dart';
 
 
 class SignUpPage extends StatefulWidget {
@@ -36,13 +33,6 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       errorMessages = [];
     });
-  }
-
-  Future<Map> attemptSignUp(
-      String email, String username, String password) async {
-    var res = await http.post(Uri.http(SERVER_URL, '/auth/users/'),
-        body: {"email": email, "username": username, "password": password});
-    return {"body": json.decode(res.body), "statuscode": res.statusCode};
   }
 
   @override

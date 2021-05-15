@@ -14,7 +14,7 @@
         android:name=".MyApplication"
         android:label="MW Insider"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/small_logo"
+        android:icon="@mipmap/ic_launcher"
         >
         <service android:name=".MyService" android:exported="true" android:enabled="true"/>
         <activity

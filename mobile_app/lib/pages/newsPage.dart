@@ -5,7 +5,6 @@ import 'package:mw_insider/components/newsArticleImage.dart';
 import 'package:mw_insider/components/unauthorizedPage.dart';
 import 'package:intl/intl.dart';
 import 'package:mw_insider/config.dart';
-import 'package:mw_insider/services/authorizationService.dart';
 import 'package:mw_insider/services/backendCommunicationService.dart';
 import 'package:mw_insider/services/urlLauncherService.dart';
 

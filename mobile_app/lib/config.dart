@@ -3,25 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-// purple
 Color themeColor = Colors.deepPurpleAccent[700];
 Color themeColorShade = Colors.deepPurple;
-// green
-// Color themeColor = Colors.green;
-// Color themeColorShade = Colors.lightGreen;
-// blue
-// Color themeColor = Colors.blue;
-// Color themeColorShade = Colors.blueAccent;
-// red
-// Color themeColor = Colors.red;
-// Color themeColorShade = Colors.redAccent;
-// orange
-// Color themeColor = Colors.orange;
-// Color themeColorShade = Colors.orangeAccent;
 
-
-// const String SERVER_URL = "10.0.2.2:8000";
-const String SERVER_URL = "192.168.1.215:8000";
+const String SERVER_URL = "188.225.85.108:8080";
 
 final storage = FlutterSecureStorage();
 
