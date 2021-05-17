@@ -27,7 +27,8 @@ jobs:
         pip install pytest
     - name: Test with pytest
       env:
-        DJANGO_SETTINGS_MODULE: Backend.Backend.settings
+        DJANGO_SETTINGS_MODULE: Backend.settings
       run: |
+        cd Backend
         echo "$DJANGO_SETTINGS_MODULE"
         pytest
