@@ -20,11 +20,12 @@ class ArticleImage extends StatelessWidget {
         loadingBuilder: (context, child, progress) {
           return progress == null
               ? child
-              : Container(
-            color: Colors.grey[300],
+              : Center(
+                child: Container(
             padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
             child: LoadingCircle(),
-          );
+          ),
+              );
         },
       );
     }

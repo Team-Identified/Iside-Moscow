@@ -52,14 +52,14 @@ void checkNearbyObjectNotification(LocationData locationData) async {
   };
   Map response = await serverRequest('post',
       'geo_objects/nearby_object_notification', requestData);
+
   if (response["need_to_notify"]){
     Notifier notifier = Notifier();
     notifier.showNotification(
-      title: "Объект близко",
+      title: "${response['object']['name_ru']}",
       description:
-      "${capitalize(response['object']['category'])} "
-        "${response['object']['name_ru']} на расстоянии "
-        "${response['distance']}м",
+      "Расстояние ${response['distance']}м, "
+      "${capitalize(getRussianCategory(response['object']['category']))}",
       importance: Importance.high,
     );
   }

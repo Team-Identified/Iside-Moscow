@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
 
-import geo_objects.management.commands.build_quadtree as bq
 
 CATEGORY_CHOICES = [
     ('MN', 'Monument'),
@@ -20,6 +19,35 @@ CATEGORY_CHOICES = [
 ]
 
 
+def get_russian_category(object_category):
+    if object_category == "monument":
+        return "памятник"
+    elif object_category == "theatre":
+        return "театр"
+    elif object_category == "museum":
+        return "музей"
+    elif object_category == "government building":
+        return "здание правительства"
+    elif object_category == "mall":
+        return "торговый центр"
+    elif object_category == "Red square object":
+        return "объект Красной Площади"
+    elif object_category == "religious building":
+        return "религиозная постройка"
+    elif object_category == "restaurant":
+        return "ресторан"
+    elif object_category == "skyscraper":
+        return "небоскрёб"
+    elif object_category == "stadium":
+        return "стадион"
+    elif object_category == "unknown":
+        return "неизвестно"
+    elif object_category == "other":
+        return "другое"
+    else:
+        return "неизвестная категория"
+
+
 class GeoObject(models.Model):
     category = models.CharField(choices=CATEGORY_CHOICES, default='Unknown', max_length=100)
     name_ru = models.CharField(max_length=200, default='')
@@ -33,12 +61,6 @@ class GeoObject(models.Model):
     contributor = models.ForeignKey('auth.User', related_name='contributed_objects', null=True,
                                     default=None, on_delete=models.SET_NULL)
     tags = TaggableManager(help_text="A comma-separated list of tags.", blank=False)
-
-    def save(self, push_to_tree=True, *args, **kwargs):
-        super().save(*args, **kwargs)  # Call the "real" save() method.
-        if push_to_tree:
-            quad_tree = QuadTree.objects.get(is_root=True)
-            bq.insert(self, quad_tree)
 
     def __str__(self):
         return f'{self.category}: {self.name_ru}/{self.name_en}'

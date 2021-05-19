@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -33,6 +35,54 @@ class _ObjectPageState extends State<ObjectPage> {
     setState(() {
       objectData = response;
     });
+  }
+
+  Widget getTagsWindow(double screenWidth){
+    List tags = objectData['tags'];
+
+    String tagsLine = "";
+    int maxTags = 100;
+    for (int i = 0; i < min(tags.length, maxTags); ++i){
+      tagsLine += "${tags[i]}";
+      if (i < tags.length - 1)
+        tagsLine += ', ';
+    }
+    if (tags.length > maxTags)
+      tagsLine += "...";
+
+    Widget myTags;
+    if (tags.length > 0){
+      myTags = Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              tagsLine,
+              style: TextStyle(
+                color: themeColorShade,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    else{
+      myTags = Container(
+        child: Center(
+          child: Text(
+            "У вас пока нет тегов",
+            style: TextStyle(
+              fontSize: 17.0,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      child: myTags,
+    );
   }
 
   @override
@@ -84,7 +134,7 @@ class _ObjectPageState extends State<ObjectPage> {
               },
               icon: Icon(MdiIcons.wikipedia, size: 45.0,),
               color: Colors.white,
-              iconSize: 65.0,
+              iconSize: 60.0,
               padding: EdgeInsets.all(0.0),
               splashColor: themeColor,
             ),
@@ -104,7 +154,7 @@ class _ObjectPageState extends State<ObjectPage> {
               },
               icon: Icon(MdiIcons.alphaB, size: 55.0,),
               color: Colors.white,
-              iconSize: 65.0,
+              iconSize: 60.0,
               padding: EdgeInsets.all(0.0),
               splashColor: themeColor,
             ),
@@ -123,7 +173,7 @@ class _ObjectPageState extends State<ObjectPage> {
             },
             icon: Icon(MdiIcons.searchWeb, size: 45.0,),
             color: Colors.white,
-            iconSize: 65.0,
+            iconSize: 60.0,
             padding: EdgeInsets.all(0.0),
             splashColor: themeColor,
           ),
@@ -144,33 +194,11 @@ class _ObjectPageState extends State<ObjectPage> {
                       height: screenHeight * 0.4,
                       color: Colors.red,
                       child: FittedBox(
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                         child: Image.network(
                           objectData['image_url'],
                           errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
-                            return Image.network(
-                              animeGirlsUrl,
-                              loadingBuilder: (context, child, progress){
-                                return progress == null
-                                    ? child
-                                    : Container(
-                                  color: Colors.grey[300],
-                                  padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                                  child: Center(
-                                    child: LoadingCircle(),
-                                  ),
-                                );
-                              },
-                              errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
-                                return Container(
-                                  color: Colors.grey[300],
-                                  padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 0.0),
-                                  child: Center(
-                                    child: LoadingCircle(),
-                                  ),
-                                );
-                              },
-                            );
+                            return Image.asset('assets/images/AnimeGirls.jpg');
                           },
                           loadingBuilder: (context, child, progress){
                             return progress == null
@@ -230,7 +258,7 @@ class _ObjectPageState extends State<ObjectPage> {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 27.0,
+                                          fontSize: 23.0,
                                         ),
                                       ),
                                     ),
@@ -240,7 +268,7 @@ class _ObjectPageState extends State<ObjectPage> {
                                         objectData['name_en'],
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 20.0,
+                                          fontSize: 19.0,
                                         ),
                                       ),
                                     ),
@@ -258,7 +286,7 @@ class _ObjectPageState extends State<ObjectPage> {
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w300,
-                                              fontSize: 17.0,
+                                              fontSize: 16.0,
                                             ),
                                           ),
                                         ),
@@ -297,7 +325,7 @@ class _ObjectPageState extends State<ObjectPage> {
                         capitalize(objectData['address']),
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                         ),
                       ),
                     ),
@@ -323,6 +351,7 @@ class _ObjectPageState extends State<ObjectPage> {
                     ),
                   ],
                 ),
+                getTagsWindow(screenWidth),
                 Flexible(
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),

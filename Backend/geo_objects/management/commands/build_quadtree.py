@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from geo_objects.models import *
-# import geo_objects.models as models
+import geo_objects.models as models
 from math import floor
 from config import QUADTREE_CAPACITY
 from geo_objects.management.commands.visualize_quadtree import visualize
@@ -128,7 +128,7 @@ class Command(BaseCommand):
 
             insert(geo_object, quad_tree)
 
-        new_quad_tree = models.QuadTree.objects.get(is_root=True)
-        data = new_quad_tree.get_json()
-        tree = json.loads(data)
-        visualize(tree, geo_objects, save=True, size=1000)
+        # new_quad_tree = models.QuadTree.objects.get(is_root=True)
+        # data = new_quad_tree.get_json()
+        # tree = json.loads(data)
+        # visualize(tree, geo_objects, save=True, size=1000)
