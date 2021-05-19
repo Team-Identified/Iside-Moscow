@@ -4,7 +4,8 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 from .views import ReportViewSet
 from geo_objects.models import GeoObject
 
-# Create your tests here.
+from geo_objects.models import QuadTree, Rectangle
+
 
 @pytest.mark.django_db
 def test_post():
@@ -26,6 +27,20 @@ def test_post():
     user = User(username="admin")
     user.save()
     force_authenticate(request, user=User.objects.get(username="admin"))
+    rect = Rectangle(
+        x=999999999.9,
+        y=999999999.9,
+        width=-1999999999.8,
+        height=-1999999999.8
+    )
+    rect.save()
+    q_tree = QuadTree(
+        capacity=50,
+        divided=False,
+        is_root=True,
+        boundary_id=1
+    )
+    q_tree.save()
     obj = GeoObject(
         category="Monument",
         name_ru="test",
@@ -51,6 +66,20 @@ def test_get():
     user.save()
     request = APIRequestFactory().get(f"/reports/all", {})
     force_authenticate(request, user=User.objects.get(username="admin"))
+    q_tree = QuadTree(
+        capacity=50,
+        divided=False,
+        is_root=True,
+        boundary_id=1
+    )
+    q_tree.save()
+    rect = Rectangle(
+        x=999999999.9,
+        y=999999999.9,
+        width=-1999999999.8,
+        height=-1999999999.8
+    )
+    rect.save()
     data = ReportViewSet.as_view({
         "get": "list"
     })(request).data
