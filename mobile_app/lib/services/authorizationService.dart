@@ -65,3 +65,21 @@ Future<void> checkToken() async{
     await refreshAccess();
   }
 }
+
+
+Future<Map> attemptLogIn(String username, String password) async {
+  var res = await http.post(Uri.http(SERVER_URL, '/auth/jwt/create/'),
+      body: {"username": username, "password": password});
+  print(json.decode(res.body));
+  int statusCode = res.statusCode;
+  Map body = json.decode(res.body);
+  return {"statuscode": statusCode, "body": body};
+}
+
+
+Future<Map> attemptSignUp(
+    String email, String username, String password) async {
+  var res = await http.post(Uri.http(SERVER_URL, '/auth/users/'),
+      body: {"email": email, "username": username, "password": password});
+  return {"body": json.decode(res.body), "statuscode": res.statusCode};
+}

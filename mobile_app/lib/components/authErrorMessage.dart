@@ -10,9 +10,6 @@ class AuthErrorMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
       child: Container(

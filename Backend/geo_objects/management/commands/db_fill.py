@@ -1,7 +1,7 @@
 from math import floor
 from django.core.management.base import BaseCommand
 import json
-from geo_objects.models import GeoObject
+from geo_objects.models import GeoObject, get_russian_category
 
 
 class Command(BaseCommand):
@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 latitude=data['latitude'],
                 longitude=data['longitude'],
             )
-            obj.save(push_to_tree=False)
-            obj.tags.set(data['category'], clear=True)
-            obj.save(push_to_tree=False)
+            obj.save()
+            obj.tags.set(data['category'], get_russian_category(data['category']), clear=True)
+            obj.save()
         print(f'Data base filled successfully!')

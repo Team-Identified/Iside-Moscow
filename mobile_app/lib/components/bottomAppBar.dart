@@ -4,7 +4,6 @@ import 'package:mw_insider/pages/homeSearchSubmitPage.dart';
 import 'package:mw_insider/pages/newsPage.dart';
 import 'package:mw_insider/pages/profilePage.dart';
 import 'package:mw_insider/pages/strollObjectPage.dart';
-import 'package:mw_insider/pages/homePage.dart';
 
 
 class CustomBottomAppBar extends StatefulWidget {

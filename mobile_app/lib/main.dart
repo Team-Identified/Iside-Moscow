@@ -31,6 +31,7 @@ class _MainState extends State<Main> with WidgetsBindingObserver {
 
 
   void loadData() async {
+    await checkToken();
     bool myLoggedIn = await isLoggedIn();
     bool myPermissionGranted = await checkLocationPermission();
 

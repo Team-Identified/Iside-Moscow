@@ -155,6 +155,7 @@ class NearbyObjectNotificationView(APIView):
             already_explored = UserObjectExploration.objects.filter(user=user, geo_object=geo_object).count() > 0
 
             if not already_explored:
+                update_user_points(request.user, 20)
                 object_exploration = UserObjectExploration(
                     user=user,
                     geo_object=geo_object,
