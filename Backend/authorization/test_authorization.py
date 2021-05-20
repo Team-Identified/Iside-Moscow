@@ -14,8 +14,6 @@ def test_get():
     data = UserProfileDetailView.as_view()(request, pk=1).data
 
     data["user"] = dict(data["user"])
-    print(data)
-
     assert data == {'id': 1,
                     'url': 'http://testserver/accounts/profile/1',
                     'user': {
@@ -27,6 +25,7 @@ def test_get():
                                 'email': '',
                                 'username': 'admin'
                     },
-                    'language': 'English',
+                    'language': 'Russian',
                     'points': 0,
-                    'rank': 'Новичок'}
+                    'rank': 'Новичок',
+                    'notification_tags': []}
