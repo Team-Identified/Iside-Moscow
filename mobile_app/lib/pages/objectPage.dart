@@ -192,9 +192,9 @@ class _ObjectPageState extends State<ObjectPage> {
                     Container(
                       width: screenWidth,
                       height: screenHeight * 0.4,
-                      color: Colors.red,
+                      color: Colors.grey,
                       child: FittedBox(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fitHeight,
                         child: Image.network(
                           objectData['image_url'],
                           errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace){
